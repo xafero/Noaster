@@ -12,5 +12,11 @@ namespace Noaster.Dist
             nsp.Usings.Add(usig);
             return usig;
         }
+
+        public static T With<T>(this T visible, Visibility vis) where T : IVisible
+        {
+            visible.Visibility = vis;
+            return visible;
+        }
     }
 }

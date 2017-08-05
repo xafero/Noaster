@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IEvent
+    public interface IEvent : IVisible
     {
     }
 }

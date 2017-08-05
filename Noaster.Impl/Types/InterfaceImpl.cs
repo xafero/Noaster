@@ -10,6 +10,7 @@ namespace Noaster.Impl.Types
 {
     public class InterfaceImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IInterface
     {
+        public Visibility Visibility { get; set; }
         public INamespace Namespace { get; }
         public string Name { get; }
         public IList<IContract> Interfaces { get; }
@@ -34,7 +35,8 @@ namespace Noaster.Impl.Types
         {
             var itt = gen.GetIntfNodes(this);
             var mmb = gen.GetMethNodes(this).Concat(gen.GetPropNodes(this)).Concat(gen.GetEvtNodes(this));
-            yield return gen.InterfaceDeclaration(Name, interfaceTypes: itt, members: mmb);
+            var acc = Visibility.ToAccessibility();
+            yield return gen.InterfaceDeclaration(Name, interfaceTypes: itt, members: mmb, accessibility: acc);
         }
     }
 }

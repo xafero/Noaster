@@ -9,6 +9,7 @@ namespace Noaster.Impl.Parts
 {
     public class ConstructorImpl : IConstructor, INamed, IHasSyntaxNodes
     {
+        public Visibility Visibility { get; set; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
 
@@ -22,7 +23,8 @@ namespace Noaster.Impl.Parts
 
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
-            yield return gen.ConstructorDeclaration(Name, gen.GetParamNodes(this));
+            var acc = Visibility.ToAccessibility();
+            yield return gen.ConstructorDeclaration(Name, gen.GetParamNodes(this), accessibility: acc);
         }
     }
 }

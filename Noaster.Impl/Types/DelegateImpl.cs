@@ -9,6 +9,7 @@ namespace Noaster.Impl.Types
 {
     public class DelegateImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IDelegate
     {
+        public Visibility Visibility { get; set; }
         public INamespace Namespace { get; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
@@ -25,7 +26,8 @@ namespace Noaster.Impl.Types
 
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
-            yield return gen.DelegateDeclaration(Name, gen.GetParamNodes(this));
+            var acc = Visibility.ToAccessibility();
+            yield return gen.DelegateDeclaration(Name, gen.GetParamNodes(this), accessibility: acc);
         }
     }
 }

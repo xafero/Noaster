@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IField
+    public interface IField : IVisible
     {
     }
 }

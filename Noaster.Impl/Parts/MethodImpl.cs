@@ -7,8 +7,9 @@ using Noaster.Impl.Utils;
 
 namespace Noaster.Impl.Parts
 {
-    public class MethodImpl : IMethod, INamed, IHasSyntaxNodes
+    public class MethodImpl : IMethod, INamed, IHasSyntaxNodes, IVisible
     {
+        public Visibility Visibility { get; set; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
 
@@ -22,7 +23,8 @@ namespace Noaster.Impl.Parts
 
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
-            yield return gen.MethodDeclaration(Name, gen.GetParamNodes(this));
+            var acc = Visibility.ToAccessibility();
+            yield return gen.MethodDeclaration(Name, gen.GetParamNodes(this), accessibility: acc);
         }
     }
 }

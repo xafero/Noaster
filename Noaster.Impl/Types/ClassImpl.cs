@@ -10,6 +10,7 @@ namespace Noaster.Impl.Types
 {
     public class ClassImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IClass
     {
+        public Visibility Visibility { get; set; }
         public INamespace Namespace { get; }
         public string Name { get; }
         public IBase BaseType { get; }
@@ -47,7 +48,9 @@ namespace Noaster.Impl.Types
                          .Concat(gen.GetPropNodes(this)).Concat(gen.GetCstrNodes(this))
                          .Concat(gen.GetOperNodes(this)).Concat(gen.GetEvtNodes(this))
                          .Concat(gen.GetIndxNodes(this));
-            yield return gen.ClassDeclaration(Name, baseType: bse, interfaceTypes: itt, members: mmb);
+            var acc = Visibility.ToAccessibility();
+            yield return gen.ClassDeclaration(Name, baseType: bse, interfaceTypes: itt,
+                members: mmb, accessibility: acc);
         }
     }
 }

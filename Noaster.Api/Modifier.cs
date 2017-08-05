@@ -7,6 +7,6 @@ namespace Noaster.Api
     {
         None = 0,
 
-        Static = 2 ^ 0
+        Static = 1
     }
 }

@@ -10,6 +10,7 @@ namespace Noaster.Impl.Parts
 {
     public class FieldImpl : IField, INamed, IHasSyntaxNodes
     {
+        public Visibility Visibility { get; set; }
         public string Type { get; }
         public string Name { get; }
 
@@ -24,7 +25,8 @@ namespace Noaster.Impl.Parts
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var type = SyntaxFactory.ParseTypeName(Type);
-            yield return gen.FieldDeclaration(Name, type);
+            var acc = Visibility.ToAccessibility();
+            yield return gen.FieldDeclaration(Name, type, accessibility: acc);
         }
     }
 }

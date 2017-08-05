@@ -1,7 +1,7 @@
 ﻿namespace Noaster.Api
 {
     public interface IInterface : IType, IContract, IHasMethods,
-        IHasProperties, IHasEvents, IHasInterfaces
+        IHasProperties, IHasEvents, IHasInterfaces, IVisible
     {
     }
 }

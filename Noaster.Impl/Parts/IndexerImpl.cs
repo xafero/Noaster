@@ -10,6 +10,7 @@ namespace Noaster.Impl.Parts
 {
     public class IndexerImpl : IIndexer, INamed, IHasSyntaxNodes
     {
+        public Visibility Visibility { get; set; }
         public string Type { get; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
@@ -26,7 +27,8 @@ namespace Noaster.Impl.Parts
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var type = SyntaxFactory.ParseTypeName(Type);
-            yield return gen.IndexerDeclaration(gen.GetParamNodes(this), type);
+            var acc = Visibility.ToAccessibility();
+            yield return gen.IndexerDeclaration(gen.GetParamNodes(this), type, accessibility: acc);
         }
     }
 }

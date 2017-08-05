@@ -10,6 +10,7 @@ namespace Noaster.Impl.Parts
 {
     public class PropertyImpl : IProperty, INamed, IHasSyntaxNodes
     {
+        public Visibility Visibility { get; set; }
         public string Type { get; }
         public string Name { get; }
 
@@ -24,7 +25,8 @@ namespace Noaster.Impl.Parts
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var type = SyntaxFactory.ParseTypeName(Type);
-            var prop = SyntaxFactory.PropertyDeclaration(type, Name);
+            var prop = SyntaxFactory.PropertyDeclaration(type, Name)
+                .WithModifiers(Visibility.ToKeyword().ToList());
             prop = prop.AddAccessorListAccessors(
                 SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
                 .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)

@@ -10,7 +10,7 @@ namespace Noaster.Impl.Types
 {
     public class StructImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IStruct
     {
-        public Visibility Visibility { get; }
+        public Visibility Visibility { get; set; }
         public INamespace Namespace { get; }
         public string Name { get; }
         public IList<IContract> Interfaces { get; }

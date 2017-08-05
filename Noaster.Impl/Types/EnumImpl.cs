@@ -9,6 +9,7 @@ namespace Noaster.Impl.Types
 {
     public class EnumImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IEnum
     {
+        public Visibility Visibility { get; set; }
         public INamespace Namespace { get; }
         public string Name { get; }
 
@@ -23,7 +24,8 @@ namespace Noaster.Impl.Types
 
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
-            yield return gen.EnumDeclaration(Name);
+            var acc = Visibility.ToAccessibility();
+            yield return gen.EnumDeclaration(Name, accessibility: acc);
         }
     }
 }

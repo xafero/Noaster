@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IIndexer : IHasParameters
+    public interface IIndexer : IHasParameters, IVisible
     {
     }
 }

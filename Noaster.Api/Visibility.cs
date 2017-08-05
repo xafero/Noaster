@@ -2,16 +2,16 @@
 {
     public enum Visibility
     {
-        None = 0,
+        None,
 
-        Public = 2 ^ 0,
+        Public,
 
-        Private = 2 ^ 1,
+        Private,
 
-        Protected = 2 ^ 2,
+        Protected,
 
-        Internal = 2 ^ 3,
+        Internal,
 
-        ProtectedInternal = 2 ^ 4
+        ProtectedInternal
     }
 }

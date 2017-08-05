@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Editing;
 using Noaster.Api;
 using Noaster.Impl.Api;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Noaster.Impl.Utils
 {
@@ -40,18 +42,31 @@ namespace Noaster.Impl.Utils
         {
             switch (vis)
             {
-                case Visibility.Private:
-                    return Accessibility.Private;
-                case Visibility.Protected:
-                    return Accessibility.Protected;
-                case Visibility.Public:
-                    return Accessibility.Public;
-                case Visibility.Internal:
-                    return Accessibility.Internal;
-                case Visibility.ProtectedInternal:
-                    return Accessibility.ProtectedOrInternal;
+                case Visibility.Private: return Accessibility.Private;
+                case Visibility.Protected: return Accessibility.Protected;
+                case Visibility.Public: return Accessibility.Public;
+                case Visibility.Internal: return Accessibility.Internal;
+                case Visibility.ProtectedInternal: return Accessibility.ProtectedOrInternal;
             }
             return Accessibility.NotApplicable;
         }
+
+        public static SyntaxToken[] ToKeyword(this Visibility vis)
+        {
+            var token = new SyntaxToken[1];
+            switch (vis)
+            {
+                case Visibility.Private: token[0] = SyntaxFactory.Token(SyntaxKind.PrivateKeyword); break;
+                case Visibility.Protected: token[0] = SyntaxFactory.Token(SyntaxKind.ProtectedKeyword); break;
+                case Visibility.Public: token[0] = SyntaxFactory.Token(SyntaxKind.PublicKeyword); break;
+                case Visibility.Internal: token[0] = SyntaxFactory.Token(SyntaxKind.InternalKeyword); break;
+                case Visibility.ProtectedInternal:
+                    token = new[] { SyntaxFactory.Token(SyntaxKind.ProtectedKeyword),
+                        SyntaxFactory.Token(SyntaxKind.InternalKeyword) }; break;
+            }
+            return token;
+        }
+
+        public static SyntaxTokenList ToList(this SyntaxToken[] token) => SyntaxFactory.TokenList(token);
     }
 }

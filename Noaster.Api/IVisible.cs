@@ -2,6 +2,6 @@
 {
     public interface IVisible
     {
-        Visibility Visibility { get; }
+        Visibility Visibility { get; set; }
     }
 }

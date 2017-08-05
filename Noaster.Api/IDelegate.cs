@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IDelegate : IType, IHasParameters
+    public interface IDelegate : IType, IHasParameters, IVisible
     {
     }
 }
