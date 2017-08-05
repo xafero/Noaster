@@ -6,7 +6,7 @@ namespace Noaster.Api.Model.Source
 
 		string getSimpleName();
 
-		string getQualifiedName();
+		string QualifiedName { get; }
 
 		bool isWildcard();
 

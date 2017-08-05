@@ -1,6 +1,7 @@
 ﻿using Noaster.Api.Model.Source;
 using NUnit.Framework;
 using System;
+using System.IO;
 
 namespace Noaster.Test
 {
@@ -40,6 +41,8 @@ namespace Noaster.Test
             meth.setPublic();
             meth.setBody("this.id = id;");
             meth.addParameter(typeof(int), "id");
+
+            Console.WriteLine(clazz);
 
             /*
              * Namespace com.company.example;
@@ -88,8 +91,9 @@ namespace Noaster.Test
             var clazz = Dist.Noaster.Create<ICSharpClassSource>();
             clazz.Namespace = "Example";
             clazz.Name = "SomeClass";
-            var doc = clazz.XmlDoc;
-            doc.FullText = "Full class documentation";
+            clazz.addImport(typeof(StringWriter).Namespace);
+            // var doc = clazz.XmlDoc;
+            // doc.FullText = "Full class documentation";
             Console.WriteLine(clazz);
         }
 

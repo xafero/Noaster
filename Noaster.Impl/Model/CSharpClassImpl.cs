@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections;
+using Microsoft.CodeAnalysis;
 using Noaster.Api.Model;
 using Noaster.Api.Model.Source;
+using Noaster.Impl;
+using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Editing;
+using Noaster.Impl.Model;
 
 namespace Noaster.Model.Impl
 {
-
-    public class CSharpClassImpl : AbstractGenericCapableCSharpSource, ICSharpClassSource
+    public class CSharpClassImpl : AbstractGenericCapableCSharpSource, ICSharpClassSource, IHasSyntaxNodes
     {
+        public override string ToString() => RoslynTool.ToString(this);
+
         public bool Abstract { get; set; }
 
         public new bool DefaultNamespace { get; set; }
@@ -27,6 +33,13 @@ namespace Noaster.Model.Impl
         public new bool Static { get; set; }
 
         public new IXmlDocSource XmlDoc { get; set; }
+
+        public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator generator)
+        {
+            foreach (var import in ((IHasSyntaxNodes)Imports).GetNodes(generator))
+                yield return import;
+            yield return generator.NamespaceDeclaration(Namespace);
+        }
 
         public new IAnnotationSource addAnnotation()
         {
@@ -63,9 +76,11 @@ namespace Noaster.Model.Impl
             throw new NotImplementedException();
         }
 
-        public new IImport addImport(string str)
+        public new IImport addImport(string qn)
         {
-            throw new NotImplementedException();
+            var import = new Import { QualifiedName = qn };
+            Imports.Add(import);
+            return import;
         }
 
         public new IImport addImport(IImport i)
@@ -207,6 +222,8 @@ namespace Noaster.Model.Impl
         {
             throw new NotImplementedException();
         }
+
+        public IList<IImport> Imports { get; } = new Imports();
 
         public new IList getImports()
         {

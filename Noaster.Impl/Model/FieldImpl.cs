@@ -8,11 +8,15 @@ namespace Noaster.Model.Impl
     public class FieldImpl : IFieldSource
     {
         readonly ICSharpSource parent;
+        readonly AnnotationAccessor annotations;
 
         public FieldImpl(ICSharpSource parent)
         {
             this.parent = parent;
+            annotations = new AnnotationAccessor();
         }
+
+        public object Origin => parent.Origin;
 
         public bool Final
         {
@@ -49,14 +53,6 @@ namespace Noaster.Model.Impl
         public string Name
         {
             set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public object Origin
-        {
-            get
             {
                 throw new NotImplementedException();
             }
