@@ -1,5 +1,5 @@
-﻿using Noaster.Api.Model.Source;
-using Noaster.Model.Impl;
+﻿using Noaster.Api;
+using Noaster.Impl.Types;
 using System;
 using System.Collections.Generic;
 
@@ -7,17 +7,18 @@ namespace Noaster.Dist
 {
     public static class Noaster
     {
-        static readonly IDictionary<Type, Func<object>> factories = new Dictionary<Type, Func<object>>
+        static readonly IDictionary<Type, Func<INamespace, string, object>> factories =
+            new Dictionary<Type, Func<INamespace, string, object>>
         {
-            { typeof(ICSharpClassSource), () => new CSharpClassImpl() }
+            { typeof(IClass), (p, n) => new ClassImpl(p, n) }
         };
 
-        public static T Create<T>()
+        public static T Create<T>(string name, INamespace nsp = null)
         {
             var type = typeof(T);
-            Func<object> fact;
+            Func<INamespace, string, object> fact;
             if (factories.TryGetValue(type, out fact))
-                return (T)fact();
+                return (T)fact(nsp, name);
             throw new InvalidOperationException(type.FullName);
         }
     }

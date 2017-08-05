@@ -1,4 +1,4 @@
-﻿using Noaster.Api.Model.Source;
+﻿using Noaster.Api;
 using NUnit.Framework;
 using System;
 using System.IO;
@@ -16,9 +16,8 @@ namespace Noaster.Test
         [Test]
         public void ShouldGenerateClass()
         {
-            var clazz = Dist.Noaster.Create<ICSharpClassSource>();
+            var clazz = Dist.Noaster.Create<IClass>("Person");
             clazz.Namespace = "Example";
-            clazz.Name = "Person";
             clazz.addInterface("Serializable");
 
             var field = clazz.addField();

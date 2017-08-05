@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{334B8D70-2569-46FE-821B-B98DFF3E4FDF}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Noaster.Impl</RootNamespace>
     <AssemblyName>Noaster.Impl</AssemblyName>
@@ -29,6 +29,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Esent.Interop, Version=1.9.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -162,17 +165,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IHasSyntaxNodes.cs" />
-    <Compile Include="Model\AbstractGenericCapableCSharpSource.cs" />
-    <Compile Include="Model\AbstractCSharpSource.cs" />
-    <Compile Include="Model\AbstractCSharpSourceMemberHolder.cs" />
-    <Compile Include="Model\AnnotationAccessor.cs" />
-    <Compile Include="Model\CSharpClassImpl.cs" />
-    <Compile Include="Model\FieldImpl.cs" />
-    <Compile Include="Model\Import.cs" />
-    <Compile Include="Model\Imports.cs" />
+    <Compile Include="Api\IHasSyntaxNodes.cs" />
+    <Compile Include="Base\NamespaceImpl.cs" />
+    <Compile Include="Base\UsingImpl.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoslynTool.cs" />
+    <Compile Include="Types\ClassImpl.cs" />
+    <Compile Include="Types\DelegateImpl.cs" />
+    <Compile Include="Types\EnumImpl.cs" />
+    <Compile Include="Types\InterfaceImpl.cs" />
+    <Compile Include="Types\StructImpl.cs" />
+    <Compile Include="Utils\RoslynTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Noaster.Api\Noaster.Api.csproj">
