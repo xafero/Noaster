@@ -25,7 +25,8 @@ namespace Noaster.Impl.Parts
         {
             var type = SyntaxFactory.ParseTypeName(Type);
             var key = SyntaxFactory.ParseTypeName(typeof(int).FullName);
-            var parms = new SyntaxNode[] { key };
+            var parm = SyntaxFactory.Parameter(SyntaxFactory.Identifier(nameof(key))).WithType(key);
+            var parms = new SyntaxNode[] { parm };
             yield return gen.IndexerDeclaration(parms, type);
         }
     }

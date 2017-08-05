@@ -88,7 +88,7 @@ namespace Noaster.Test
         [Test]
         public void ShouldGenerateOperator()
         {
-            var myOp = Dist.Noaster.Create<IOperator>("MyOperator");
+            var myOp = Dist.Noaster.Create<IOperator>("UnaryPlus");
             Console.WriteLine(myOp);
         }
 

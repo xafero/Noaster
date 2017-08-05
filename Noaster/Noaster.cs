@@ -22,7 +22,10 @@ namespace Noaster.Dist
             { typeof(IMethod), (p, n) => new MethodImpl(n) },
             { typeof(IProperty), (p, n) => new PropertyImpl(n) },
             { typeof(IEvent), (p, n) => new EventImpl(n) },
-            { typeof(IField), (p, n) => new FieldImpl(n) }
+            { typeof(IField), (p, n) => new FieldImpl(n) },
+            { typeof(IOperator), (p, n) => new OperatorImpl(n) },
+            { typeof(IIndexer), (p, n) => new IndexerImpl(n) },
+            { typeof(IConstructor), (p, n) => new ConstructorImpl(n) }
         };
 
         public static T Create<T>(string name, INamespace nsp = null)
