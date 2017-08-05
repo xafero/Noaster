@@ -38,6 +38,7 @@
     <Compile Include="IDelegate.cs" />
     <Compile Include="IEnum.cs" />
     <Compile Include="IInterface.cs" />
+    <Compile Include="IMethod.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="INamespace.cs" />
     <Compile Include="INamespaced.cs" />

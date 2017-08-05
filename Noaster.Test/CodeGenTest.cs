@@ -44,6 +44,13 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateMethod()
+        {
+            var myMeth = Dist.Noaster.Create<IMethod>("MyMethod");
+            Console.WriteLine(myMeth);
+        }
+
+        [Test]
         public void ShouldGenerateAll()
         {
             var aNsp = Dist.Noaster.Create<INamespace>("System.IO.Nasa");

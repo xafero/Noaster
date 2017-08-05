@@ -1,5 +1,6 @@
 ﻿using Noaster.Api;
 using Noaster.Impl.Base;
+using Noaster.Impl.Parts;
 using Noaster.Impl.Types;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace Noaster.Dist
             { typeof(IEnum), (p, n) => new EnumImpl(p, n) },
             { typeof(IInterface), (p, n) => new InterfaceImpl(p, n) },
             { typeof(INamespace), (p, n) => new NamespaceImpl(n, p) },
-            { typeof(IUsing), (p, n) => new UsingImpl(n) }
+            { typeof(IUsing), (p, n) => new UsingImpl(n) },
+            { typeof(IMethod), (p, n) => new MethodImpl(n) },
         };
 
         public static T Create<T>(string name, INamespace nsp = null)
