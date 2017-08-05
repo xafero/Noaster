@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Noaster.Api
+﻿namespace Noaster.Api
 {
     public interface IType : INamed
     {
