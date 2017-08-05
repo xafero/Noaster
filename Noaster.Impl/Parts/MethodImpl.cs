@@ -10,6 +10,7 @@ namespace Noaster.Impl.Parts
     public class MethodImpl : IMethod, INamed, IHasSyntaxNodes, IVisible
     {
         public Visibility Visibility { get; set; }
+        public Modifier Modifier { get; set; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
 
@@ -24,7 +25,9 @@ namespace Noaster.Impl.Parts
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var acc = Visibility.ToAccessibility();
-            yield return gen.MethodDeclaration(Name, gen.GetParamNodes(this), accessibility: acc);
+            var mod = Modifier.ToDeclare();
+            yield return gen.MethodDeclaration(Name, gen.GetParamNodes(this),
+                accessibility: acc, modifiers: mod);
         }
     }
 }
