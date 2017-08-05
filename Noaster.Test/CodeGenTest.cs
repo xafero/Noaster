@@ -51,6 +51,13 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateProperty()
+        {
+            var myProp = Dist.Noaster.Create<IProperty>("MyProperty");
+            Console.WriteLine(myProp);
+        }
+
+        [Test]
         public void ShouldGenerateAll()
         {
             var aNsp = Dist.Noaster.Create<INamespace>("System.IO.Nasa");

@@ -43,6 +43,7 @@
     <Compile Include="INamespace.cs" />
     <Compile Include="INamespaced.cs" />
     <Compile Include="INamespaceMember.cs" />
+    <Compile Include="IProperty.cs" />
     <Compile Include="IStruct.cs" />
     <Compile Include="IUsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -20,6 +20,7 @@ namespace Noaster.Dist
             { typeof(INamespace), (p, n) => new NamespaceImpl(n, p) },
             { typeof(IUsing), (p, n) => new UsingImpl(n) },
             { typeof(IMethod), (p, n) => new MethodImpl(n) },
+            { typeof(IProperty), (p, n) => new PropertyImpl(n) }
         };
 
         public static T Create<T>(string name, INamespace nsp = null)

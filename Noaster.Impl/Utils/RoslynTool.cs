@@ -4,7 +4,6 @@ using Microsoft.CodeAnalysis.Editing;
 using Microsoft.CodeAnalysis.Formatting;
 using Noaster.Impl.Api;
 using System.IO;
-using System.Linq;
 
 namespace Noaster.Impl.Utils
 {
