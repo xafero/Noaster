@@ -22,6 +22,12 @@ namespace Noaster.Impl.Utils
                 {
                     var helper = generator.ClassDeclaration("Autogen", members: syntaxNodes);
                     unit = generator.CompilationUnit(helper);
+                    if (unit.FullSpan.Length <= 14)
+                    {
+                        var meth = generator.MethodDeclaration("Invoke", syntaxNodes);
+                        helper = generator.ClassDeclaration("Autogen", members: new[] { meth });
+                        unit = generator.CompilationUnit(helper);
+                    }
                 }
                 unit = unit.NormalizeWhitespace();
                 var node = Formatter.Format(unit, workspace, options);

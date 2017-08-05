@@ -93,6 +93,13 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateParameter()
+        {
+            var myParm = Dist.Noaster.Create<IParameter>("myParam");
+            Console.WriteLine(myParm);
+        }
+
+        [Test]
         public void ShouldGenerateAll()
         {
             var aNsp = Dist.Noaster.Create<INamespace>("System.IO.Nasa");

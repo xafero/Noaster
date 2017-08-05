@@ -25,7 +25,8 @@ namespace Noaster.Dist
             { typeof(IField), (p, n) => new FieldImpl(n) },
             { typeof(IOperator), (p, n) => new OperatorImpl(n) },
             { typeof(IIndexer), (p, n) => new IndexerImpl(n) },
-            { typeof(IConstructor), (p, n) => new ConstructorImpl(n) }
+            { typeof(IConstructor), (p, n) => new ConstructorImpl(n) },
+            { typeof(IParameter), (p, n) => new ParameterImpl(n) }
         };
 
         public static T Create<T>(string name, INamespace nsp = null)
