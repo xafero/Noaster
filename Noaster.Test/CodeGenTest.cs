@@ -91,7 +91,7 @@ namespace Noaster.Test
         [Test]
         public void ShouldGenerateOperator()
         {
-            var myOp = Noast.Create<IOperator>("UnaryPlus");
+            var myOp = Noast.Create<IOperator>("UnaryPlus").With(Modifier.Static).With(Visibility.Public);
             Console.WriteLine(myOp);
         }
 

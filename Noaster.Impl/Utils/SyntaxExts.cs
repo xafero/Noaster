@@ -38,6 +38,15 @@ namespace Noaster.Impl.Utils
         public static IEnumerable<SyntaxNode> GetIndxNodes(this SyntaxGenerator gen, IHasIndexers holder)
             => holder.Indexers.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
+        public static DeclarationModifiers ToDeclare(this Modifier mod)
+        {
+            switch (mod)
+            {
+                case Modifier.Static: return DeclarationModifiers.Static;
+            }
+            return DeclarationModifiers.None;
+        }
+
         public static Accessibility ToAccessibility(this Visibility vis)
         {
             switch (vis)

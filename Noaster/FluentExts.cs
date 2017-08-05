@@ -18,5 +18,11 @@ namespace Noaster.Dist
             visible.Visibility = vis;
             return visible;
         }
+
+        public static T With<T>(this T modifiable, Modifier mod) where T : IModifiable
+        {
+            modifiable.Modifier = mod;
+            return modifiable;
+        }
     }
 }

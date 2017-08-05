@@ -2,6 +2,6 @@
 {
     public interface IModifiable
     {
-        Modifier Modifier { get; }
+        Modifier Modifier { get; set; }
     }
 }

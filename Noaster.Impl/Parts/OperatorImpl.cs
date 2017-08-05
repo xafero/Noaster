@@ -10,6 +10,8 @@ namespace Noaster.Impl.Parts
 {
     public class OperatorImpl : IOperator, INamed, IHasSyntaxNodes
     {
+        public Visibility Visibility { get; set; }
+        public Modifier Modifier { get; set; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
 
@@ -25,7 +27,10 @@ namespace Noaster.Impl.Parts
         {
             OperatorKind kind;
             Enum.TryParse(Name, true, out kind);
-            yield return gen.OperatorDeclaration(kind, gen.GetParamNodes(this));
+            var acc = Visibility.ToAccessibility();
+            var mod = Modifier.ToDeclare();
+            yield return gen.OperatorDeclaration(kind, gen.GetParamNodes(this),
+                accessibility: acc, modifiers: mod);
         }
     }
 }
