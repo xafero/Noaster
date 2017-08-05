@@ -43,6 +43,7 @@ namespace Noaster.Impl.Utils
             switch (mod)
             {
                 case Modifier.Static: return DeclarationModifiers.Static;
+                case Modifier.Abstract: return DeclarationModifiers.Abstract;
             }
             return DeclarationModifiers.None;
         }
