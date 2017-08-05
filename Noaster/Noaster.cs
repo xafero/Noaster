@@ -21,7 +21,8 @@ namespace Noaster.Dist
             { typeof(IUsing), (p, n) => new UsingImpl(n) },
             { typeof(IMethod), (p, n) => new MethodImpl(n) },
             { typeof(IProperty), (p, n) => new PropertyImpl(n) },
-            { typeof(IEvent), (p, n) => new EventImpl(n) }
+            { typeof(IEvent), (p, n) => new EventImpl(n) },
+            { typeof(IField), (p, n) => new FieldImpl(n) }
         };
 
         public static T Create<T>(string name, INamespace nsp = null)
