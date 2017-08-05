@@ -10,6 +10,7 @@ namespace Noaster.Impl.Types
 {
     public class StructImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IStruct
     {
+        public Visibility Visibility { get; }
         public INamespace Namespace { get; }
         public string Name { get; }
         public IList<IContract> Interfaces { get; }
@@ -40,7 +41,8 @@ namespace Noaster.Impl.Types
             var mmb = gen.GetFldNodes(this).Concat(gen.GetMethNodes(this))
                          .Concat(gen.GetPropNodes(this)).Concat(gen.GetCstrNodes(this))
                          .Concat(gen.GetOperNodes(this));
-            yield return gen.StructDeclaration(Name, interfaceTypes: itt, members: mmb);
+            yield return gen.StructDeclaration(Name, interfaceTypes: itt, members: mmb,
+                accessibility: Visibility.ToAccessibility());
         }
     }
 }

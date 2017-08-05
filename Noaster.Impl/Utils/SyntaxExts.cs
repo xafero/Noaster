@@ -19,21 +19,39 @@ namespace Noaster.Impl.Utils
             => holder.Interfaces.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
         public static IEnumerable<SyntaxNode> GetEvtNodes(this SyntaxGenerator gen, IHasEvents holder)
-			=> holder.Events.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
+            => holder.Events.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
         public static IEnumerable<SyntaxNode> GetPropNodes(this SyntaxGenerator gen, IHasProperties holder)
-			=> holder.Properties.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
+            => holder.Properties.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
         public static IEnumerable<SyntaxNode> GetFldNodes(this SyntaxGenerator gen, IHasFields holder)
-	        => holder.Fields.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
+            => holder.Fields.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
         public static IEnumerable<SyntaxNode> GetCstrNodes(this SyntaxGenerator gen, IHasConstructors holder)
-		    => holder.Constructors.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
+            => holder.Constructors.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
         public static IEnumerable<SyntaxNode> GetOperNodes(this SyntaxGenerator gen, IHasOperators holder)
-	        => holder.Operators.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
+            => holder.Operators.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
-		public static IEnumerable<SyntaxNode> GetIndxNodes(this SyntaxGenerator gen, IHasIndexers holder)
-		    => holder.Indexers.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
-	}
+        public static IEnumerable<SyntaxNode> GetIndxNodes(this SyntaxGenerator gen, IHasIndexers holder)
+            => holder.Indexers.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
+
+        public static Accessibility ToAccessibility(this Visibility vis)
+        {
+            switch (vis)
+            {
+                case Visibility.Private:
+                    return Accessibility.Private;
+                case Visibility.Protected:
+                    return Accessibility.Protected;
+                case Visibility.Public:
+                    return Accessibility.Public;
+                case Visibility.Internal:
+                    return Accessibility.Internal;
+                case Visibility.ProtectedInternal:
+                    return Accessibility.ProtectedOrInternal;
+            }
+            return Accessibility.NotApplicable;
+        }
+    }
 }
