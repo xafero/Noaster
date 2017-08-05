@@ -1,19 +1,19 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Editing;
 using Noaster.Api;
 using Noaster.Impl.Api;
 using Noaster.Impl.Utils;
-using System.Collections.Generic;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Noaster.Impl.Parts
 {
-    public class EventImpl : IEvent, INamed, IHasSyntaxNodes
+    public class IndexerImpl : IIndexer, INamed, IHasSyntaxNodes
     {
         public string Type { get; }
         public string Name { get; }
 
-        public EventImpl(string name, string type = null)
+        public IndexerImpl(string name, string type = null)
         {
             Name = name;
             Type = type ?? typeof(object).FullName;
@@ -24,8 +24,9 @@ namespace Noaster.Impl.Parts
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var type = SyntaxFactory.ParseTypeName(Type);
-            // gen.CustomEventDeclaration
-            yield return gen.EventDeclaration(Name, type);
+            var key = SyntaxFactory.ParseTypeName(typeof(int).FullName);
+            var parms = new SyntaxNode[] { key };
+            yield return gen.IndexerDeclaration(parms, type);
         }
     }
 }
