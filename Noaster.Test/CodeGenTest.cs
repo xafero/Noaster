@@ -2,6 +2,9 @@
 using NUnit.Framework;
 using System;
 using System.Text;
+using Noaster.Dist;
+
+using Noast = Noaster.Dist.Noaster;
 
 namespace Noaster.Test
 {
@@ -11,104 +14,104 @@ namespace Noaster.Test
         [Test]
         public void ShouldGenerateEnum()
         {
-            var myEnum = Dist.Noaster.Create<IEnum>("MyEnum");
+            var myEnum = Noast.Create<IEnum>("MyEnum");
             Console.WriteLine(myEnum);
         }
 
         [Test]
         public void ShouldGenerateClass()
         {
-            var myClass = Dist.Noaster.Create<IClass>("MyClass");
+            var myClass = Noast.Create<IClass>("MyClass");
             Console.WriteLine(myClass);
         }
 
         [Test]
         public void ShouldGenerateDelegate()
         {
-            var myDlgt = Dist.Noaster.Create<IDelegate>("MyDelegate");
+            var myDlgt = Noast.Create<IDelegate>("MyDelegate");
             Console.WriteLine(myDlgt);
         }
 
         [Test]
         public void ShouldGenerateInterface()
         {
-            var myIntf = Dist.Noaster.Create<IInterface>("MyInterface");
+            var myIntf = Noast.Create<IInterface>("MyInterface");
             Console.WriteLine(myIntf);
         }
 
         [Test]
         public void ShouldGenerateStruct()
         {
-            var myStruct = Dist.Noaster.Create<IStruct>("MyStruct");
+            var myStruct = Noast.Create<IStruct>("MyStruct");
             Console.WriteLine(myStruct);
         }
 
         [Test]
         public void ShouldGenerateMethod()
         {
-            var myMeth = Dist.Noaster.Create<IMethod>("MyMethod");
+            var myMeth = Noast.Create<IMethod>("MyMethod");
             Console.WriteLine(myMeth);
         }
 
         [Test]
         public void ShouldGenerateProperty()
         {
-            var myProp = Dist.Noaster.Create<IProperty>("MyProperty");
+            var myProp = Noast.Create<IProperty>("MyProperty");
             Console.WriteLine(myProp);
         }
 
         [Test]
         public void ShouldGenerateEvent()
         {
-            var myEvent = Dist.Noaster.Create<IEvent>("MyEvent");
+            var myEvent = Noast.Create<IEvent>("MyEvent");
             Console.WriteLine(myEvent);
         }
 
         [Test]
         public void ShouldGenerateField()
         {
-            var myField = Dist.Noaster.Create<IField>("MyField");
+            var myField = Noast.Create<IField>("MyField");
             Console.WriteLine(myField);
         }
 
         [Test]
         public void ShouldGenerateIndexer()
         {
-            var myIndx = Dist.Noaster.Create<IIndexer>("MyIndexer");
+            var myIndx = Noast.Create<IIndexer>("MyIndexer");
             Console.WriteLine(myIndx);
         }
 
         [Test]
         public void ShouldGenerateConstructor()
         {
-            var myCnstr = Dist.Noaster.Create<IConstructor>("MyConstructor");
+            var myCnstr = Noast.Create<IConstructor>("MyConstructor");
             Console.WriteLine(myCnstr);
         }
 
         [Test]
         public void ShouldGenerateOperator()
         {
-            var myOp = Dist.Noaster.Create<IOperator>("UnaryPlus");
+            var myOp = Noast.Create<IOperator>("UnaryPlus");
             Console.WriteLine(myOp);
         }
 
         [Test]
         public void ShouldGenerateParameter()
         {
-            var myParm = Dist.Noaster.Create<IParameter>("myParam");
+            var myParm = Noast.Create<IParameter>("myParam");
             Console.WriteLine(myParm);
         }
 
         [Test]
         public void ShouldGenerateAll()
         {
-            var aNsp = Dist.Noaster.Create<INamespace>("System.IO.Nasa");
-            aNsp.Usings.Add(Dist.Noaster.Create<IUsing>(typeof(StringBuilder).Namespace));
-            var aStruct = Dist.Noaster.Create<IStruct>("HelloStruct", aNsp);
-            var anEnum = Dist.Noaster.Create<IEnum>("HelloEnum", aNsp);
-            var anInterf = Dist.Noaster.Create<IInterface>("HelloInterf", aNsp);
-            var aClass = Dist.Noaster.Create<IClass>("HelloClass", aNsp);
-            var aDeleg = Dist.Noaster.Create<IDelegate>("HelloDelegate", aNsp);
+            var aNsp = Noast.Create<INamespace>("System.IO.Nasa");
+            aNsp.AddUsing(typeof(StringBuilder).Namespace);
+            var aStruct = Noast.Create<IStruct>("HelloStruct", aNsp);
+            var anEnum = Noast.Create<IEnum>("HelloEnum", aNsp);
+            var anInterf = Noast.Create<IInterface>("HelloInterf", aNsp);
+            var aClass = Noast.Create<IClass>("HelloClass", aNsp);
+            var aDeleg = Noast.Create<IDelegate>("HelloDelegate", aNsp);
             Console.WriteLine(aNsp);
         }
     }
