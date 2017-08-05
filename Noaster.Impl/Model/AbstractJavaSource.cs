@@ -6,7 +6,7 @@ using Noaster.Api.Model.Source;
 namespace Noaster.Model.Impl
 {
 
-    public abstract class AbstractJavaSource : ICSharpSource, ITypeHolderSource, IStaticCapableSource
+    public abstract class AbstractCSharpSource : ICSharpSource, ITypeHolderSource, IStaticCapableSource
     {
         public bool DefaultNamespace
         {
@@ -91,6 +91,14 @@ namespace Noaster.Model.Impl
         string INamespaced.Namespace
         {
             get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        bool IStaticCapableSource.Static
+        {
+            set
             {
                 throw new NotImplementedException();
             }

@@ -6,7 +6,7 @@ using Noaster.Api.Model.Source;
 namespace Noaster.Model.Impl
 {
 
-    public abstract class AbstractGenericCapableJavaSource : AbstractJavaSourceMemberHolder, IGenericCapableSource
+    public abstract class AbstractGenericCapableCSharpSource : AbstractCSharpSourceMemberHolder, IGenericCapableSource
     {
         public ITypeVariableSource addTypeVariable()
         {

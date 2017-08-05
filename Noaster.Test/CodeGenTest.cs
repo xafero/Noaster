@@ -25,8 +25,8 @@ namespace Noaster.Test
             field.Type = typeof(long);
             field.LiteralInitializer = "1L";
             field.setPrivate();
-            field.setStatic(true);
-            field.setFinal(true);
+            field.Static = true;
+            field.Final = true;
 
             var prop = clazz.addProperty(typeof(int), "id");
             prop.setMutable(false);

@@ -5,7 +5,7 @@ using Noaster.Api.Model.Source;
 
 namespace Noaster.Model.Impl
 {
-    public abstract class AbstractJavaSourceMemberHolder : AbstractJavaSource, IInterfaceCapableSource, IPropertyHolderSource
+    public abstract class AbstractCSharpSourceMemberHolder : AbstractCSharpSource, IInterfaceCapableSource, IPropertyHolderSource
     {
         public IFieldSource addField()
         {
