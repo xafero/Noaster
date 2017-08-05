@@ -58,6 +58,13 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateEvent()
+        {
+            var myEvent = Dist.Noaster.Create<IEvent>("MyEvent");
+            Console.WriteLine(myEvent);
+        }
+
+        [Test]
         public void ShouldGenerateAll()
         {
             var aNsp = Dist.Noaster.Create<INamespace>("System.IO.Nasa");

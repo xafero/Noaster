@@ -168,6 +168,7 @@
     <Compile Include="Api\IHasSyntaxNodes.cs" />
     <Compile Include="Base\NamespaceImpl.cs" />
     <Compile Include="Base\UsingImpl.cs" />
+    <Compile Include="Parts\EventImpl.cs" />
     <Compile Include="Parts\MethodImpl.cs" />
     <Compile Include="Parts\PropertyImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
