@@ -1,7 +1,7 @@
 ﻿using Noaster.Api;
 using NUnit.Framework;
 using System;
-using System.IO;
+using System.Text;
 
 namespace Noaster.Test
 {
@@ -11,107 +11,49 @@ namespace Noaster.Test
         [Test]
         public void ShouldGenerateEnum()
         {
+            var myEnum = Dist.Noaster.Create<IEnum>("MyEnum");
+            Console.WriteLine(myEnum);
         }
 
         [Test]
         public void ShouldGenerateClass()
         {
-            var clazz = Dist.Noaster.Create<IClass>("Person");
-            clazz.Namespace = "Example";
-            clazz.addInterface("Serializable");
-
-            var field = clazz.addField();
-            field.Name = "serialVersionUID";
-            field.Type = typeof(long);
-            field.LiteralInitializer = "1L";
-            field.setPrivate();
-            field.Static = true;
-            field.Final = true;
-
-            var prop = clazz.addProperty(typeof(int), "id");
-            prop.setMutable(false);
-
-            prop = clazz.addProperty(typeof(string), "firstName");
-
-            clazz.addProperty("String", "lastName");
-
-            var meth = clazz.addMethod();
-            meth.setConstructor(true);
-            meth.setPublic();
-            meth.setBody("this.id = id;");
-            meth.addParameter(typeof(int), "id");
-
-            Console.WriteLine(clazz);
-
-            /*
-             * Namespace com.company.example;
-
-            import CSharp.io.Serializable;
-
-            public class Person implements Serializable {
-
-            private static final long serialVersionUID = 1L;
-            private final Integer id;
-            private String firstName;
-            private String lastName;
-
-            public Integer getId() {
-            return id;
-            }
-
-            public String getFirstName() {
-            return firstName;
-            }
-
-            public void setFirstName(String firstName) {
-            this.firstName = firstName;
-            }
-
-            public String getLastName() {
-            return lastName;
-            }
-
-            public void setLastName(String lastName) {
-            this.lastName = lastName;
-            }
-
-            public Person(Integer id) {
-            this.id = id;
-            }
-            }
-            */
-
-
-        }
-
-        [Test]
-        public void ShouldGenerateDoc()
-        {
-            var clazz = Dist.Noaster.Create<ICSharpClassSource>();
-            clazz.Namespace = "Example";
-            clazz.Name = "SomeClass";
-            clazz.addImport(typeof(StringWriter).Namespace);
-            // var doc = clazz.XmlDoc;
-            // doc.FullText = "Full class documentation";
-            Console.WriteLine(clazz);
+            var myClass = Dist.Noaster.Create<IClass>("MyClass");
+            Console.WriteLine(myClass);
         }
 
         [Test]
         public void ShouldGenerateDelegate()
         {
-
+            var myDlgt = Dist.Noaster.Create<IDelegate>("MyDelegate");
+            Console.WriteLine(myDlgt);
         }
 
         [Test]
         public void ShouldGenerateInterface()
         {
-
+            var myIntf = Dist.Noaster.Create<IInterface>("MyInterface");
+            Console.WriteLine(myIntf);
         }
 
         [Test]
         public void ShouldGenerateStruct()
         {
+            var myStruct = Dist.Noaster.Create<IStruct>("MyStruct");
+            Console.WriteLine(myStruct);
+        }
 
+        [Test]
+        public void ShouldGenerateAll()
+        {
+            var aNsp = Dist.Noaster.Create<INamespace>("System.IO.Nasa");
+            aNsp.Usings.Add(Dist.Noaster.Create<IUsing>(typeof(StringBuilder).Namespace));
+            var aStruct = Dist.Noaster.Create<IStruct>("HelloStruct", aNsp);
+            var anEnum = Dist.Noaster.Create<IEnum>("HelloEnum", aNsp);
+            var anInterf = Dist.Noaster.Create<IInterface>("HelloInterf", aNsp);
+            var aClass = Dist.Noaster.Create<IClass>("HelloClass", aNsp);
+            var aDeleg = Dist.Noaster.Create<IDelegate>("HelloDelegate", aNsp);
+            Console.WriteLine(aNsp);
         }
     }
 }

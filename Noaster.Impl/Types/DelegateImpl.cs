@@ -7,7 +7,7 @@ using Noaster.Impl.Utils;
 
 namespace Noaster.Impl.Types
 {
-    public class DelegateImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember
+    public class DelegateImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IDelegate
     {
         public INamespace Namespace { get; }
         public string Name { get; }

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{334B8D70-2569-46FE-821B-B98DFF3E4FDF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Noaster.Impl</RootNamespace>
     <AssemblyName>Noaster.Impl</AssemblyName>
@@ -168,7 +168,6 @@
     <Compile Include="Api\IHasSyntaxNodes.cs" />
     <Compile Include="Base\NamespaceImpl.cs" />
     <Compile Include="Base\UsingImpl.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ClassImpl.cs" />
     <Compile Include="Types\DelegateImpl.cs" />
@@ -184,7 +183,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

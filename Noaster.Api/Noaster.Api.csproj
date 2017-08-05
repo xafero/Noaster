@@ -35,10 +35,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IClass.cs" />
+    <Compile Include="IDelegate.cs" />
+    <Compile Include="IEnum.cs" />
+    <Compile Include="IInterface.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="INamespace.cs" />
     <Compile Include="INamespaced.cs" />
     <Compile Include="INamespaceMember.cs" />
+    <Compile Include="IStruct.cs" />
     <Compile Include="IUsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

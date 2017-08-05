@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Noaster.Impl.Types
 {
-    public class EnumImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember
+    public class EnumImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IEnum
     {
         public INamespace Namespace { get; }
         public string Name { get; }

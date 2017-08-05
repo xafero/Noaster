@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Noaster.Impl.Types
 {
-    public class StructImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember
+    public class StructImpl : INamespaced, INamed, IHasSyntaxNodes, INamespaceMember, IStruct
     {
         public INamespace Namespace { get; }
         public string Name { get; }
