@@ -5,6 +5,7 @@ using Noaster.Api.Model.Source;
 
 namespace Noaster.Model.Impl
 {
+
     public class CSharpClassImpl : AbstractGenericCapableCSharpSource, ICSharpClassSource
     {
         public bool Abstract { get; set; }

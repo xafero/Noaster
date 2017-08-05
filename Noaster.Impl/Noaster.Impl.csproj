@@ -37,6 +37,7 @@
     <Compile Include="Model\AbstractCSharpSource.cs" />
     <Compile Include="Model\AbstractCSharpSourceMemberHolder.cs" />
     <Compile Include="Model\CSharpClassImpl.cs" />
+    <Compile Include="Model\FieldImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
