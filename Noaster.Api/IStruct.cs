@@ -3,8 +3,7 @@
 namespace Noaster.Api
 {
     public interface IStruct : IType, IHasFields, IHasMethods, IHasProperties,
-        IHasConstructors, IHasOperators
+        IHasConstructors, IHasOperators, IHasInterfaces
     {
-        IList<IContract> Interfaces { get; }
     }
 }

@@ -14,6 +14,13 @@ namespace Noaster.Impl.Types
         public string Name { get; }
         public IBase BaseType { get; }
         public IList<IContract> Interfaces { get; }
+        public IList<IField> Fields { get; }
+        public IList<IMethod> Methods { get; }
+        public IList<IProperty> Properties { get; }
+        public IList<IConstructor> Constructors { get; }
+        public IList<IOperator> Operators { get; }
+        public IList<IEvent> Events { get; }
+        public IList<IIndexer> Indexers { get; }
 
         public ClassImpl(INamespace nsp, string name)
         {
@@ -21,6 +28,13 @@ namespace Noaster.Impl.Types
             nsp?.Members.Add(this);
             Name = name;
             Interfaces = new List<IContract>();
+            Fields = new List<IField>();
+            Methods = new List<IMethod>();
+            Properties = new List<IProperty>();
+            Constructors = new List<IConstructor>();
+            Operators = new List<IOperator>();
+            Events = new List<IEvent>();
+            Indexers = new List<IIndexer>();
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -29,7 +43,11 @@ namespace Noaster.Impl.Types
         {
             var bse = (BaseType as IHasSyntaxNodes)?.GetNodes(gen).SingleOrDefault();
             var itt = gen.GetIntfNodes(this);
-            yield return gen.ClassDeclaration(Name, baseType: bse, interfaceTypes: itt);
+            var mmb = gen.GetFldNodes(this).Concat(gen.GetMethNodes(this))
+                         .Concat(gen.GetPropNodes(this)).Concat(gen.GetCstrNodes(this))
+                         .Concat(gen.GetOperNodes(this)).Concat(gen.GetEvtNodes(this))
+                         .Concat(gen.GetIndxNodes(this));
+            yield return gen.ClassDeclaration(Name, baseType: bse, interfaceTypes: itt, members: mmb);
         }
     }
 }
