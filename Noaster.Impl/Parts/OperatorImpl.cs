@@ -11,10 +11,12 @@ namespace Noaster.Impl.Parts
     public class OperatorImpl : IOperator, INamed, IHasSyntaxNodes
     {
         public string Name { get; }
+        public IList<IParameter> Parameters { get; }
 
         public OperatorImpl(string name)
         {
             Name = name;
+            Parameters = new List<IParameter>();
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -23,7 +25,7 @@ namespace Noaster.Impl.Parts
         {
             OperatorKind kind;
             Enum.TryParse(Name, true, out kind);
-            yield return gen.OperatorDeclaration(kind);
+            yield return gen.OperatorDeclaration(kind, gen.GetParamNodes(this));
         }
     }
 }

@@ -4,6 +4,7 @@ using Noaster.Api;
 using Noaster.Impl.Api;
 using Noaster.Impl.Utils;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Noaster.Impl.Types
 {
@@ -11,19 +12,29 @@ namespace Noaster.Impl.Types
     {
         public INamespace Namespace { get; }
         public string Name { get; }
+        public IList<IContract> Interfaces { get; }
+        public IList<IMethod> Methods { get; }
+        public IList<IProperty> Properties { get; }
+        public IList<IEvent> Events { get; }
 
         public InterfaceImpl(INamespace nsp, string name)
         {
             Namespace = nsp;
             nsp?.Members.Add(this);
             Name = name;
+            Interfaces = new List<IContract>();
+            Methods = new List<IMethod>();
+            Properties = new List<IProperty>();
+            Events = new List<IEvent>();
         }
 
         public override string ToString() => RoslynTool.ToString(this);
 
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
-            yield return gen.InterfaceDeclaration(Name);
+            var itt = gen.GetIntfNodes(this);
+            var mmb = gen.GetMethNodes(this).Concat(gen.GetPropNodes(this)).Concat(gen.GetEvtNodes(this));
+            yield return gen.InterfaceDeclaration(Name, interfaceTypes: itt, members: mmb);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IOperator
+    public interface IOperator : IHasParameters
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IEnum
+    public interface IEnum : IType
     {
     }
 }

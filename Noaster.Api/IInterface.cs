@@ -1,6 +1,9 @@
-﻿namespace Noaster.Api
+﻿using System.Collections.Generic;
+
+namespace Noaster.Api
 {
-    public interface IInterface
+    public interface IInterface : IType, IContract, IHasMethods,
+        IHasProperties, IHasEvents, IHasInterfaces
     {
     }
 }

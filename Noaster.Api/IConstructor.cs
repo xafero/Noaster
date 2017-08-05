@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IConstructor
+    public interface IConstructor : IHasParameters
     {
     }
 }

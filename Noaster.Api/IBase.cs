@@ -2,7 +2,7 @@
 
 namespace Noaster.Api
 {
-    public interface IParameter : INamed
+    public interface IBase : INamed
     {
     }
 }

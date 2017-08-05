@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IMethod
+    public interface IMethod : IHasParameters
     {
     }
 }

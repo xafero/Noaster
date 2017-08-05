@@ -12,11 +12,13 @@ namespace Noaster.Impl.Parts
     {
         public string Type { get; }
         public string Name { get; }
+        public IList<IParameter> Parameters { get; }
 
         public IndexerImpl(string name, string type = null)
         {
             Name = name;
             Type = type ?? typeof(object).FullName;
+            Parameters = new List<IParameter>();
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -24,10 +26,7 @@ namespace Noaster.Impl.Parts
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var type = SyntaxFactory.ParseTypeName(Type);
-            var key = SyntaxFactory.ParseTypeName(typeof(int).FullName);
-            var parm = SyntaxFactory.Parameter(SyntaxFactory.Identifier(nameof(key))).WithType(key);
-            var parms = new SyntaxNode[] { parm };
-            yield return gen.IndexerDeclaration(parms, type);
+            yield return gen.IndexerDeclaration(gen.GetParamNodes(this), type);
         }
     }
 }

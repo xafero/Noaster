@@ -183,6 +183,7 @@
     <Compile Include="Types\StructImpl.cs" />
     <Compile Include="Utils\RoslynTool.cs" />
     <Compile Include="Parts\ParameterImpl.cs" />
+    <Compile Include="Utils\SyntaxExts.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Noaster.Api\Noaster.Api.csproj">
