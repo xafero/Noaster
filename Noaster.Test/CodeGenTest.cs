@@ -72,6 +72,27 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateIndexer()
+        {
+            var myIndx = Dist.Noaster.Create<IIndexer>("MyIndexer");
+            Console.WriteLine(myIndx);
+        }
+
+        [Test]
+        public void ShouldGenerateConstructor()
+        {
+            var myCnstr = Dist.Noaster.Create<IConstructor>("MyConstructor");
+            Console.WriteLine(myCnstr);
+        }
+
+        [Test]
+        public void ShouldGenerateOperator()
+        {
+            var myOp = Dist.Noaster.Create<IOperator>("MyOperator");
+            Console.WriteLine(myOp);
+        }
+
+        [Test]
         public void ShouldGenerateAll()
         {
             var aNsp = Dist.Noaster.Create<INamespace>("System.IO.Nasa");
