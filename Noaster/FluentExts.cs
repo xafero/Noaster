@@ -13,6 +13,13 @@ namespace Noaster.Dist
             return usig;
         }
 
+        public static IContract AddImplements(this IHasInterfaces intf, string name)
+        {
+            var cntr = Noast.Create<IContract>(name);
+            intf.Interfaces.Add(cntr);
+            return cntr;
+        }
+
         public static T With<T>(this T visible, Visibility vis) where T : IVisible
         {
             visible.Visibility = vis;
