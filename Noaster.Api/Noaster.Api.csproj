@@ -34,10 +34,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAttribute.cs" />
     <Compile Include="IClass.cs" />
     <Compile Include="IConstructor.cs" />
     <Compile Include="IDelegate.cs" />
     <Compile Include="IEnum.cs" />
+    <Compile Include="IEnumVal.cs" />
     <Compile Include="IEvent.cs" />
     <Compile Include="IField.cs" />
     <Compile Include="IIndexer.cs" />
