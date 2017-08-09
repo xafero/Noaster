@@ -3,7 +3,6 @@ using NUnit.Framework;
 using System;
 using System.Text;
 using Noaster.Dist;
-
 using Noast = Noaster.Dist.Noaster;
 
 namespace Noaster.Test
@@ -15,6 +14,9 @@ namespace Noaster.Test
         public void ShouldGenerateEnum()
         {
             var myEnum = Noast.Create<IEnum>("MyEnum").With(Visibility.Public);
+            myEnum.AddValue("Test1");
+            myEnum.AddValue("Test2");
+            myEnum.AddValue("Test3");
             Console.WriteLine(myEnum);
         }
 

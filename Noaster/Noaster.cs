@@ -16,6 +16,7 @@ namespace Noaster.Dist
             { typeof(IStruct), (p, n) => new StructImpl(p, n) },
             { typeof(IDelegate), (p, n) => new DelegateImpl(p, n) },
             { typeof(IEnum), (p, n) => new EnumImpl(p, n) },
+            { typeof(IEnumVal), (p, n) => new EnumValueImpl(n) },
             { typeof(IInterface), (p, n) => new InterfaceImpl(p, n) },
             { typeof(INamespace), (p, n) => new NamespaceImpl(n, p) },
             { typeof(IUsing), (p, n) => new UsingImpl(n) },

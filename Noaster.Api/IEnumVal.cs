@@ -1,7 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IEnumVal
+    public interface IEnumVal : INamed
     {
-        
     }
 }

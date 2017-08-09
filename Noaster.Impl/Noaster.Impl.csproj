@@ -169,6 +169,7 @@
     <Compile Include="Base\NamespaceImpl.cs" />
     <Compile Include="Base\UsingImpl.cs" />
     <Compile Include="Parts\ConstructorImpl.cs" />
+    <Compile Include="Parts\EnumValueImpl.cs" />
     <Compile Include="Parts\EventImpl.cs" />
     <Compile Include="Parts\FieldImpl.cs" />
     <Compile Include="Parts\IndexerImpl.cs" />

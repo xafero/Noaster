@@ -19,6 +19,13 @@ namespace Noaster.Dist
             intf.Interfaces.Add(cntr);
             return cntr;
         }
+        
+        public static IEnumVal AddValue(this IEnum enm, string name)
+        {
+            var enmVal = Noast.Create<IEnumVal>(name);
+            enm.Values.Add(enmVal);
+            return enmVal;
+        }
 
         public static T With<T>(this T visible, Visibility vis) where T : IVisible
         {

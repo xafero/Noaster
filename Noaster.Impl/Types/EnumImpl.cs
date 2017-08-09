@@ -4,6 +4,7 @@ using Noaster.Api;
 using Noaster.Impl.Api;
 using Noaster.Impl.Utils;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Noaster.Impl.Types
 {
@@ -12,12 +13,14 @@ namespace Noaster.Impl.Types
         public Visibility Visibility { get; set; }
         public INamespace Namespace { get; }
         public string Name { get; }
+        public IList<IEnumVal> Values { get; }
 
         public EnumImpl(INamespace nsp, string name)
         {
             Namespace = nsp;
             nsp?.Members.Add(this);
             Name = name;
+            Values = new List<IEnumVal>();
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -25,7 +28,8 @@ namespace Noaster.Impl.Types
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var acc = Visibility.ToAccessibility();
-            yield return gen.EnumDeclaration(Name, accessibility: acc);
+            var mmb = Values.OfType<IHasSyntaxNodes>().SelectMany(v => v.GetNodes(gen));
+            yield return gen.EnumDeclaration(Name, members: mmb, accessibility: acc);
         }
     }
 }
