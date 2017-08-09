@@ -5,6 +5,7 @@ using Noaster.Impl.Api;
 using Noaster.Impl.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Noaster.Impl.Types
 {
@@ -19,6 +20,7 @@ namespace Noaster.Impl.Types
         public IList<IProperty> Properties { get; }
         public IList<IConstructor> Constructors { get; }
         public IList<IOperator> Operators { get; }
+        public IList<IAttribute> Attributes { get; }
 
         public StructImpl(INamespace nsp, string name)
         {
@@ -31,6 +33,7 @@ namespace Noaster.Impl.Types
             Properties = new List<IProperty>();
             Constructors = new List<IConstructor>();
             Operators = new List<IOperator>();
+            Attributes = new List<IAttribute>();
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -41,8 +44,9 @@ namespace Noaster.Impl.Types
             var mmb = gen.GetFldNodes(this).Concat(gen.GetMethNodes(this))
                          .Concat(gen.GetPropNodes(this)).Concat(gen.GetCstrNodes(this))
                          .Concat(gen.GetOperNodes(this));
-            yield return gen.StructDeclaration(Name, interfaceTypes: itt, members: mmb,
-                accessibility: Visibility.ToAccessibility());
+            var stru = (StructDeclarationSyntax) gen.StructDeclaration(Name, interfaceTypes: itt,
+                members: mmb, accessibility: Visibility.ToAccessibility());
+            yield return stru.WithAttributeLists(gen.GetAttrsNodes(this).ToList());
         }
     }
 }

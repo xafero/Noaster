@@ -1,6 +1,7 @@
 ﻿using Noaster.Api;
 using NUnit.Framework;
 using System;
+using System.Runtime.InteropServices;
 using System.Text;
 using Noaster.Dist;
 using Noast = Noaster.Dist.Noaster;
@@ -45,6 +46,7 @@ namespace Noaster.Test
         public void ShouldGenerateStruct()
         {
             var myStruct = Noast.Create<IStruct>("MyStruct").With(Visibility.Public);
+            myStruct.AddAttribute(typeof(SerializableAttribute).FullName);
             Console.WriteLine(myStruct);
         }
 

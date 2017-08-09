@@ -1,7 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IAttribute
+    public interface IAttribute : INamed
     {
-        
     }
 }

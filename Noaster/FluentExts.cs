@@ -20,13 +20,20 @@ namespace Noaster.Dist
             return cntr;
         }
         
+        public static IAttribute AddAttribute(this IHasAttributes attrs, string name)
+        {
+            var attr = Noast.Create<IAttribute>(name);
+            attrs.Attributes.Add(attr);
+            return attr;
+        }
+        
         public static IEnumVal AddValue(this IEnum enm, string name)
         {
             var enmVal = Noast.Create<IEnumVal>(name);
             enm.Values.Add(enmVal);
             return enmVal;
         }
-
+        
         public static T With<T>(this T visible, Visibility vis) where T : IVisible
         {
             visible.Visibility = vis;

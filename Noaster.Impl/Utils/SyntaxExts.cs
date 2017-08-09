@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.Editing;
 using Noaster.Api;
 using Noaster.Impl.Api;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Noaster.Impl.Utils
 {
@@ -78,5 +79,11 @@ namespace Noaster.Impl.Utils
         }
 
         public static SyntaxTokenList ToList(this SyntaxToken[] token) => SyntaxFactory.TokenList(token);
+
+        public static IEnumerable<AttributeListSyntax> GetAttrsNodes(this SyntaxGenerator gen, IHasAttributes holder)
+            => holder.Attributes.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen)).OfType<AttributeListSyntax>();
+
+        public static SyntaxList<AttributeListSyntax> ToList(this IEnumerable<AttributeListSyntax> nodes)
+            => (new SyntaxList<AttributeListSyntax>()).AddRange(nodes);
     }
 }

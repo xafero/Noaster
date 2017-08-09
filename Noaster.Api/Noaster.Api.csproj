@@ -42,6 +42,7 @@
     <Compile Include="IEnumVal.cs" />
     <Compile Include="IEvent.cs" />
     <Compile Include="IField.cs" />
+    <Compile Include="IHasAttributes.cs" />
     <Compile Include="IIndexer.cs" />
     <Compile Include="IInterface.cs" />
     <Compile Include="IMethod.cs" />
