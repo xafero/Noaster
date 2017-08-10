@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using Noaster.Api;
-
 using Noast = Noaster.Dist.Noaster;
 
 namespace Noaster.Dist
@@ -20,21 +19,31 @@ namespace Noaster.Dist
             intf.Interfaces.Add(cntr);
             return cntr;
         }
-        
+
         public static IAttribute AddAttribute(this IHasAttributes attrs, string name)
         {
             var attr = Noast.Create<IAttribute>(name);
             attrs.Attributes.Add(attr);
             return attr;
         }
-        
+
+        public static IParameter AddParameter(this IHasParameters parms, string name, string type,
+            ParamModifier? mod = null)
+        {
+            var parm = Noast.Create<IParameter>(name);
+            parm.Type = type;
+            parm.Modifier = mod.GetValueOrDefault();
+            parms.Parameters.Add(parm);
+            return parm;
+        }
+
         public static IEnumVal AddValue(this IEnum enm, string name)
         {
             var enmVal = Noast.Create<IEnumVal>(name);
             enm.Values.Add(enmVal);
             return enmVal;
         }
-        
+
         public static T With<T>(this T visible, Visibility vis) where T : IVisible
         {
             visible.Visibility = vis;

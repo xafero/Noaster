@@ -11,7 +11,8 @@ namespace Noaster.Impl.Parts
 {
     public class ParameterImpl : IParameter, INamed, IHasSyntaxNodes
     {
-        public string Type { get; }
+        public ParamModifier Modifier { get; set; }
+        public string Type { get; set; }
         public string Name { get; }
 
         public ParameterImpl(string name, string type = null)
@@ -26,7 +27,8 @@ namespace Noaster.Impl.Parts
         {
             var type = SyntaxFactory.ParseTypeName(Type);
             var parm = (ParameterSyntax)gen.ParameterDeclaration(Name);
-            yield return parm.WithType(type);
+            var tokens = Modifier.ToKeyword().ToList();
+            yield return parm.WithType(type).WithModifiers(tokens);
         }
     }
 }

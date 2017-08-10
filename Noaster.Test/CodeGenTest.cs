@@ -59,6 +59,9 @@ namespace Noaster.Test
         public void ShouldGenerateMethod()
         {
             var myMeth = Noast.Create<IMethod>("MyMethod").With(Visibility.Public);
+            myMeth.AddParameter("a", "int");
+            myMeth.AddParameter("b", "int", ParamModifier.Ref);
+            myMeth.AddParameter("c", "int", ParamModifier.Out);
             Console.WriteLine(myMeth);
         }
 

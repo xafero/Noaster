@@ -78,6 +78,17 @@ namespace Noaster.Impl.Utils
             return token;
         }
 
+        public static SyntaxToken[] ToKeyword(this ParamModifier mod)
+        {
+            var token = new SyntaxToken[1];
+            switch (mod)
+            {
+                case ParamModifier.Ref: token[0] = SyntaxFactory.Token(SyntaxKind.RefKeyword); break;
+                case ParamModifier.Out: token[0] = SyntaxFactory.Token(SyntaxKind.OutKeyword); break;
+            }
+            return token;
+        }
+
         public static SyntaxTokenList ToList(this SyntaxToken[] token) => SyntaxFactory.TokenList(token);
 
         public static IEnumerable<AttributeListSyntax> GetAttrsNodes(this SyntaxGenerator gen, IHasAttributes holder)
