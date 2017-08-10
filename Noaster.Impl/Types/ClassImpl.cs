@@ -14,7 +14,7 @@ namespace Noaster.Impl.Types
         public Modifier Modifier { get; set; }
         public INamespace Namespace { get; }
         public string Name { get; }
-        public IBase BaseType { get; }
+        public IBase BaseType { get; set; }
         public IList<IContract> Interfaces { get; }
         public IList<IField> Fields { get; }
         public IList<IMethod> Methods { get; }

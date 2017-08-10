@@ -1,4 +1,5 @@
-﻿using Noaster.Api;
+﻿using System.Globalization;
+using Noaster.Api;
 
 using Noast = Noaster.Dist.Noaster;
 
@@ -44,6 +45,12 @@ namespace Noaster.Dist
         {
             modifiable.Modifier = mod;
             return modifiable;
+        }
+
+        public static T ChildOf<T>(this T clazz, string type) where T : IClass
+        {
+            clazz.BaseType = Noaster.Create<IBase>(type);
+            return clazz;
         }
     }
 }

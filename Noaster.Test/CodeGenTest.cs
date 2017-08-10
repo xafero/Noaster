@@ -24,7 +24,10 @@ namespace Noaster.Test
         [Test]
         public void ShouldGenerateClass()
         {
-            var myClass = Noast.Create<IClass>("MyClass").With(Visibility.Public);
+            var myClass = Noast.Create<IClass>("MyClass").With(Visibility.Public)
+                .ChildOf(typeof(Delegate).FullName);
+            myClass.AddImplements(typeof(IDisposable).FullName);
+            myClass.AddImplements(typeof(ICloneable).FullName);
             Console.WriteLine(myClass);
         }
 
@@ -39,6 +42,8 @@ namespace Noaster.Test
         public void ShouldGenerateInterface()
         {
             var myIntf = Noast.Create<IInterface>("MyInterface").With(Visibility.Public);
+            myIntf.AddImplements(typeof(IDisposable).FullName);
+            myIntf.AddImplements(typeof(ICloneable).FullName);
             Console.WriteLine(myIntf);
         }
 

@@ -167,6 +167,7 @@
   <ItemGroup>
     <Compile Include="Api\IHasSyntaxNodes.cs" />
     <Compile Include="Base\NamespaceImpl.cs" />
+    <Compile Include="Base\TypeRefImpl.cs" />
     <Compile Include="Base\UsingImpl.cs" />
     <Compile Include="Parts\AttributeImpl.cs" />
     <Compile Include="Parts\ConstructorImpl.cs" />
