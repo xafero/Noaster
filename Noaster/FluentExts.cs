@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Noaster.Api;
+﻿using Noaster.Api;
 using Noast = Noaster.Dist.Noaster;
 
 namespace Noaster.Dist
@@ -36,7 +35,7 @@ namespace Noaster.Dist
             parms.Parameters.Add(parm);
             return parm;
         }
-
+        
         public static IEnumVal AddValue(this IEnum enm, string name)
         {
             var enmVal = Noast.Create<IEnumVal>(name);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Editing;
@@ -11,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Noaster.Impl.Utils
 {
     public static class SyntaxExts
-    {
+    {        
         public static IEnumerable<SyntaxNode> GetParamNodes(this SyntaxGenerator gen, IHasParameters holder)
             => holder.Parameters.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
