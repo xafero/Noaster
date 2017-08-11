@@ -59,7 +59,13 @@ namespace Noaster.Test
         public void ShouldGenerateMethod()
         {
             var myMeth = Noast.Create<IMethod>("MyMethod").With(Visibility.Public);
-            myMeth.AddAttribute(typeof(DllImportAttribute).FullName); // [DllImport("cfgmgr32.dll", SetLastError=true)]
+            var attr = myMeth.AddAttribute(typeof(DllImportAttribute).FullName);
+            attr.Values.Add("cfgmgr32.dll");
+            attr.Values.Add(44);
+            attr.Values.Add(true);
+            attr.Properties["Entrypoint"] = "Calc";
+            attr.Properties["Count"] = 43;
+            attr.Properties["SetLastError"] = true;
             myMeth.ReturnType = typeof(long).FullName;
             myMeth.Body = "System.Console.WriteLine(\"Hello world!\");" +
                           "throw new System.InvalidOperationException();";

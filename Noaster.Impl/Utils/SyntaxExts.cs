@@ -106,5 +106,35 @@ namespace Noaster.Impl.Utils
             var root = tree.GetRoot().ChildNodes().Single().ChildNodes().Single();
             return root.ChildNodes();
         }
+
+        public static SyntaxNode ToLiteral(object obj)
+        {
+            SyntaxToken token;
+            SyntaxKind kind;
+            var type = obj.GetType().FullName;
+            switch (type)
+            {
+                case "System.String":
+                    kind = SyntaxKind.StringLiteralExpression;
+                    token = SyntaxFactory.Literal((string) obj);
+                    break;
+                case "System.Int32":
+                    kind = SyntaxKind.NumericLiteralExpression;
+                    token = SyntaxFactory.Literal((int) obj);
+                    break;
+                case "System.Boolean":
+                    return SyntaxFactory.LiteralExpression((bool) obj
+                        ? SyntaxKind.TrueLiteralExpression
+                        : SyntaxKind.FalseLiteralExpression);
+                default:
+                    throw new InvalidOperationException(type);
+            }
+            return SyntaxFactory.LiteralExpression(kind, token);
+        }
+
+        public static IEnumerable<SyntaxNode> ToSyntaxNodes(IDictionary<string, SyntaxNode> dict)
+            => dict.Select(o => SyntaxFactory.AssignmentExpression(
+                SyntaxKind.SimpleAssignmentExpression,
+                SyntaxFactory.IdentifierName(o.Key), (ExpressionSyntax) o.Value));
     }
 }
