@@ -59,6 +59,7 @@ namespace Noaster.Test
         public void ShouldGenerateMethod()
         {
             var myMeth = Noast.Create<IMethod>("MyMethod").With(Visibility.Public);
+            myMeth.AddAttribute(typeof(DllImportAttribute).FullName); // [DllImport("cfgmgr32.dll", SetLastError=true)]
             myMeth.ReturnType = typeof(long).FullName;
             myMeth.Body = "System.Console.WriteLine(\"Hello world!\");" +
                           "throw new System.InvalidOperationException();";
