@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Editing;
@@ -95,5 +96,15 @@ namespace Noaster.Impl.Utils
 
         public static SyntaxList<AttributeListSyntax> ToList(this IEnumerable<AttributeListSyntax> nodes)
             => (new SyntaxList<AttributeListSyntax>()).AddRange(nodes);
+
+        public static IEnumerable<SyntaxNode> GetNodesFromCode(string rawCode)
+        {
+            if (string.IsNullOrWhiteSpace(rawCode)) 
+                return new SyntaxNode[0];                
+            var code = $"{{ {rawCode} }}";
+            var tree = SyntaxFactory.ParseSyntaxTree(code, new CSharpParseOptions(kind: SourceCodeKind.Script));
+            var root = tree.GetRoot().ChildNodes().Single().ChildNodes().Single();
+            return root.ChildNodes();
+        }
     }
 }
