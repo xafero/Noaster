@@ -186,6 +186,7 @@
     <Compile Include="Types\EnumImpl.cs" />
     <Compile Include="Types\InterfaceImpl.cs" />
     <Compile Include="Types\StructImpl.cs" />
+    <Compile Include="Utils\MethodList.cs" />
     <Compile Include="Utils\RoslynTool.cs" />
     <Compile Include="Parts\ParameterImpl.cs" />
     <Compile Include="Utils\SyntaxExts.cs" />

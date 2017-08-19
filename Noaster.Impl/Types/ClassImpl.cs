@@ -31,7 +31,7 @@ namespace Noaster.Impl.Types
             Name = name;
             Interfaces = new List<IContract>();
             Fields = new List<IField>();
-            Methods = new List<IMethod>();
+            Methods = new MethodList(this);
             Properties = new List<IProperty>();
             Constructors = new List<IConstructor>();
             Operators = new List<IOperator>();
@@ -46,9 +46,9 @@ namespace Noaster.Impl.Types
             var bse = (BaseType as IHasSyntaxNodes)?.GetNodes(gen).SingleOrDefault();
             var itt = gen.GetIntfNodes(this);
             var mmb = gen.GetFldNodes(this).Concat(gen.GetMethNodes(this))
-                         .Concat(gen.GetPropNodes(this)).Concat(gen.GetCstrNodes(this))
-                         .Concat(gen.GetOperNodes(this)).Concat(gen.GetEvtNodes(this))
-                         .Concat(gen.GetIndxNodes(this));
+                .Concat(gen.GetPropNodes(this)).Concat(gen.GetCstrNodes(this))
+                .Concat(gen.GetOperNodes(this)).Concat(gen.GetEvtNodes(this))
+                .Concat(gen.GetIndxNodes(this));
             var acc = Visibility.ToAccessibility();
             var mods = Modifier.ToDeclare();
             yield return gen.ClassDeclaration(Name, baseType: bse, interfaceTypes: itt,

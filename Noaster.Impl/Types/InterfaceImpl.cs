@@ -24,7 +24,7 @@ namespace Noaster.Impl.Types
             nsp?.Members.Add(this);
             Name = name;
             Interfaces = new List<IContract>();
-            Methods = new List<IMethod>();
+            Methods = new MethodList(this);
             Properties = new List<IProperty>();
             Events = new List<IEvent>();
         }

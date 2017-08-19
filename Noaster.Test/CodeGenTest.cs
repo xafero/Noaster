@@ -78,15 +78,39 @@ namespace Noaster.Test
         [Test]
         public void ShouldGenerateProperty()
         {
+            // Manual
             var myProp = Noast.Create<IProperty>("MyProperty").With(Visibility.Public);
             Console.WriteLine(myProp);
+            // Automatic            
+            var myClass = Noast.Create<IClass>("Autogen");
+            var getter = Noast.Create<IMethod>("get_MyProperty").With(Visibility.Public);
+            getter.ReturnType = typeof(object).FullName;
+            myClass.Methods.Add(getter);
+            var setter = Noast.Create<IMethod>("set_MyProperty").With(Visibility.Public);
+            setter.AddParameter("value", typeof(object).FullName);
+            myClass.Methods.Add(setter);
+            Console.WriteLine(myClass);
+            // Compare
+            Assert.AreEqual(myProp.ToString(), myClass.ToString());
         }
 
         [Test]
         public void ShouldGenerateEvent()
         {
+            // Manual
             var myEvent = Noast.Create<IEvent>("MyEvent").With(Visibility.Public);
             Console.WriteLine(myEvent);
+            // Automatic 
+            var myClass = Noast.Create<IClass>("Autogen");
+            var adder = Noast.Create<IMethod>("add_MyEvent").With(Visibility.Public);
+            adder.AddParameter("listener", typeof(object).FullName);
+            myClass.Methods.Add(adder);
+            var remover = Noast.Create<IMethod>("remove_MyEvent").With(Visibility.Public);
+            remover.AddParameter("listener", typeof(object).FullName);
+            myClass.Methods.Add(remover);
+            Console.WriteLine(myClass);
+            // Compare
+            Assert.AreEqual(myEvent.ToString(), myClass.ToString());
         }
 
         [Test]

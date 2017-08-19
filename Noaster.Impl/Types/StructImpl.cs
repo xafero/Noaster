@@ -29,7 +29,7 @@ namespace Noaster.Impl.Types
             Name = name;
             Interfaces = new List<IContract>();
             Fields = new List<IField>();
-            Methods = new List<IMethod>();
+            Methods = new MethodList(this);
             Properties = new List<IProperty>();
             Constructors = new List<IConstructor>();
             Operators = new List<IOperator>();
