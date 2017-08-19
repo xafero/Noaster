@@ -136,5 +136,35 @@ namespace Noaster.Test
             var aDeleg = Noast.Create<IDelegate>("HelloDelegate", aNsp);
             Console.WriteLine(aNsp);
         }
+
+        [Test]
+        public void ShouldGenerateMetadata()
+        {
+            var myInfo = Noast.Create<IMetadata>("Super.Awesome.Lib");
+            myInfo.AddUsing("System");
+            myInfo.AddUsing("System.Diagnostics");
+            myInfo.AddUsing("System.Reflection");
+            myInfo.AddUsing("System.Runtime.CompilerServices");
+            myInfo.Version = new Version("4.6.1.0");
+            myInfo.ClsCompliant = true;
+            myInfo.Company = "Autofac";
+            myInfo.Configuration = "Debug";
+            myInfo.Copyright = "Copyright © 2015 Autofac Contributors";
+            myInfo.Description = "Autofac Inversion of Control container for .NET applications.";
+            myInfo.Alias = "Autofac";
+            myInfo.InternalVersion = "4.6.1-develop-00422";
+            myInfo.Product = "Autofac";
+            myInfo.Title = "Autofac";
+            myInfo.NeutralLocale = "en-US";
+            myInfo.ComVisible = false;
+            myInfo.Trademark = "";
+            myInfo.Culture = "en-GB";
+            myInfo.Guid = Guid.NewGuid();
+            myInfo.Metadata["Author"] = "PhD Franz Schuster";
+            myInfo.Metadata["CreationDate"] = "August 23 2011";
+            myInfo.Metadata["Website"] = "www.google.de";
+            myInfo.TargetFramework = "4.5";
+            Console.WriteLine(myInfo);
+        }
     }
 }

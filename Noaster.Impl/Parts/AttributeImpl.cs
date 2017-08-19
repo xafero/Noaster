@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Editing;
@@ -19,6 +20,11 @@ namespace Noaster.Impl.Parts
             Name = name;
             Values = new List<object>();
             Properties = new Dictionary<string, object>();
+        }
+
+        public AttributeImpl(string name, params object[] values) : this(name)
+        {
+            Array.ForEach(values, v => Values.Add(v));
         }
 
         public override string ToString() => RoslynTool.ToString(this);

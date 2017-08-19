@@ -4,6 +4,7 @@ using Noaster.Impl.Parts;
 using Noaster.Impl.Types;
 using System;
 using System.Collections.Generic;
+using Noaster.Impl.Meta;
 
 namespace Noaster.Dist
 {
@@ -30,7 +31,8 @@ namespace Noaster.Dist
             { typeof(IParameter), (p, n) => new ParameterImpl(n) },
             { typeof(IAttribute), (p, n) => new AttributeImpl(n) },
             { typeof(IBase), (p, n) => new TypeRefImpl(n) },
-            { typeof(IContract), (p, n) => new TypeRefImpl(n) }
+            { typeof(IContract), (p, n) => new TypeRefImpl(n) },
+            { typeof(IMetadata), (p, n) => new MetadataImpl(n) }
         };
 
         public static T Create<T>(string name, INamespace nsp = null)

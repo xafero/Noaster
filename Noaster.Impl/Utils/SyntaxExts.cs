@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Noaster.Impl.Utils
 {
     public static class SyntaxExts
-    {        
+    {
         public static IEnumerable<SyntaxNode> GetParamNodes(this SyntaxGenerator gen, IHasParameters holder)
             => holder.Parameters.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen));
 
@@ -67,13 +67,25 @@ namespace Noaster.Impl.Utils
             var token = new SyntaxToken[1];
             switch (vis)
             {
-                case Visibility.Private: token[0] = SyntaxFactory.Token(SyntaxKind.PrivateKeyword); break;
-                case Visibility.Protected: token[0] = SyntaxFactory.Token(SyntaxKind.ProtectedKeyword); break;
-                case Visibility.Public: token[0] = SyntaxFactory.Token(SyntaxKind.PublicKeyword); break;
-                case Visibility.Internal: token[0] = SyntaxFactory.Token(SyntaxKind.InternalKeyword); break;
+                case Visibility.Private:
+                    token[0] = SyntaxFactory.Token(SyntaxKind.PrivateKeyword);
+                    break;
+                case Visibility.Protected:
+                    token[0] = SyntaxFactory.Token(SyntaxKind.ProtectedKeyword);
+                    break;
+                case Visibility.Public:
+                    token[0] = SyntaxFactory.Token(SyntaxKind.PublicKeyword);
+                    break;
+                case Visibility.Internal:
+                    token[0] = SyntaxFactory.Token(SyntaxKind.InternalKeyword);
+                    break;
                 case Visibility.ProtectedInternal:
-                    token = new[] { SyntaxFactory.Token(SyntaxKind.ProtectedKeyword),
-                        SyntaxFactory.Token(SyntaxKind.InternalKeyword) }; break;
+                    token = new[]
+                    {
+                        SyntaxFactory.Token(SyntaxKind.ProtectedKeyword),
+                        SyntaxFactory.Token(SyntaxKind.InternalKeyword)
+                    };
+                    break;
             }
             return token;
         }
@@ -83,8 +95,12 @@ namespace Noaster.Impl.Utils
             var token = new SyntaxToken[1];
             switch (mod)
             {
-                case ParamModifier.Ref: token[0] = SyntaxFactory.Token(SyntaxKind.RefKeyword); break;
-                case ParamModifier.Out: token[0] = SyntaxFactory.Token(SyntaxKind.OutKeyword); break;
+                case ParamModifier.Ref:
+                    token[0] = SyntaxFactory.Token(SyntaxKind.RefKeyword);
+                    break;
+                case ParamModifier.Out:
+                    token[0] = SyntaxFactory.Token(SyntaxKind.OutKeyword);
+                    break;
             }
             return token;
         }
@@ -92,15 +108,16 @@ namespace Noaster.Impl.Utils
         public static SyntaxTokenList ToList(this SyntaxToken[] token) => SyntaxFactory.TokenList(token);
 
         public static IEnumerable<AttributeListSyntax> GetAttrsNodes(this SyntaxGenerator gen, IHasAttributes holder)
-            => holder.Attributes.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen)).OfType<AttributeListSyntax>();
+            => holder.Attributes.OfType<IHasSyntaxNodes>().SelectMany(n => n.GetNodes(gen))
+                .OfType<AttributeListSyntax>();
 
         public static SyntaxList<AttributeListSyntax> ToList(this IEnumerable<AttributeListSyntax> nodes)
             => (new SyntaxList<AttributeListSyntax>()).AddRange(nodes);
 
         public static IEnumerable<SyntaxNode> GetNodesFromCode(string rawCode)
         {
-            if (string.IsNullOrWhiteSpace(rawCode)) 
-                return new SyntaxNode[0];                
+            if (string.IsNullOrWhiteSpace(rawCode))
+                return new SyntaxNode[0];
             var code = $"{{ {rawCode} }}";
             var tree = SyntaxFactory.ParseSyntaxTree(code, new CSharpParseOptions(kind: SourceCodeKind.Script));
             var root = tree.GetRoot().ChildNodes().Single().ChildNodes().Single();
@@ -136,5 +153,12 @@ namespace Noaster.Impl.Utils
             => dict.Select(o => SyntaxFactory.AssignmentExpression(
                 SyntaxKind.SimpleAssignmentExpression,
                 SyntaxFactory.IdentifierName(o.Key), (ExpressionSyntax) o.Value));
+
+        public static AttributeListSyntax MakeAssemblyAttribute(this AttributeListSyntax attr)
+            => attr.WithTarget(SyntaxFactory.AttributeTargetSpecifier(
+                SyntaxFactory.Token(SyntaxKind.AssemblyKeyword)));
+
+        public static SyntaxNode PatchAttributes(this CompilationUnitSyntax unit, IEnumerable<SyntaxNode> nodes)
+            => unit.AddAttributeLists(nodes.OfType<AttributeListSyntax>().ToArray());
     }
 }

@@ -5,7 +5,7 @@ namespace Noaster.Dist
 {
     public static class FluentExts
     {
-        public static IUsing AddUsing(this INamespace nsp, string name)
+        public static IUsing AddUsing(this IHasUsings nsp, string name)
         {
             var usig = Noast.Create<IUsing>(name);
             nsp.Usings.Add(usig);

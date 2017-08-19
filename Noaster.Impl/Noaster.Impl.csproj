@@ -169,6 +169,8 @@
     <Compile Include="Base\NamespaceImpl.cs" />
     <Compile Include="Base\TypeRefImpl.cs" />
     <Compile Include="Base\UsingImpl.cs" />
+    <Compile Include="Meta\MetadataImpl.cs" />
+    <Compile Include="Meta\NetFramework.cs" />
     <Compile Include="Parts\AttributeImpl.cs" />
     <Compile Include="Parts\ConstructorImpl.cs" />
     <Compile Include="Parts\EnumValueImpl.cs" />

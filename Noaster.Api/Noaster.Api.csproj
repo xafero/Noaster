@@ -45,8 +45,10 @@
     <Compile Include="IHasAttributes.cs" />
     <Compile Include="IHasBody.cs" />
     <Compile Include="IHasReturnType.cs" />
+    <Compile Include="IHasUsings.cs" />
     <Compile Include="IIndexer.cs" />
     <Compile Include="IInterface.cs" />
+    <Compile Include="IMetadata.cs" />
     <Compile Include="IMethod.cs" />
     <Compile Include="IModifiable.cs" />
     <Compile Include="INamed.cs" />

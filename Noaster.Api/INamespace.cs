@@ -2,10 +2,8 @@
 
 namespace Noaster.Api
 {
-    public interface INamespace : INamed, INamespaceMember
+    public interface INamespace : INamed, INamespaceMember, IHasUsings
     {
-        ISet<IUsing> Usings { get; }
-
         ISet<INamespaceMember> Members { get; }
     }
 }
