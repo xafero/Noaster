@@ -59,7 +59,11 @@ namespace Noaster.Impl.Utils
 
         private bool IsSpecial(IMethod item)
         {
-            var name = item.Name.Split('_').First();
+            var name = item.Name;
+            if (name.StartsWith("."))
+                name = name.TrimStart('.');
+            else if (name.Contains('_'))
+                name = name.Split('_').First();
             Special kind;
             return Enum.TryParse(name, true, out kind) && Understand(kind, item);
         }
@@ -69,6 +73,8 @@ namespace Noaster.Impl.Utils
             var name = item.Name.Split(new[] {'_'}, 2).Last();
             switch (kind)
             {
+                case Special.Ctor:
+                    return AddOrUpdateConstructor(kind == Special.Ctor, item);
                 case Special.Get:
                 case Special.Set:
                     return AddOrUpdateProperty(name, kind == Special.Get, item);
@@ -104,12 +110,25 @@ namespace Noaster.Impl.Utils
             return true;
         }
 
+        private bool AddOrUpdateConstructor(bool isInstance, IMethod orig)
+        {
+            var holder = _type as IHasConstructors;
+            if (holder == null)
+                return false;
+            var cstr = holder.Constructors.FirstOrDefault();
+            if (cstr == null)
+                holder.Constructors.Add(cstr = new ConstructorImpl(null));
+            cstr.Visibility = orig.Visibility;
+            return true;
+        }
+
         public enum Special
         {
             Get,
             Set,
             Add,
-            Remove
+            Remove,
+            Ctor
         }
     }
 }

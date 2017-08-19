@@ -114,6 +114,21 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateConstructor()
+        {
+            // Manual
+            var myCnstr = Noast.Create<IConstructor>("MyConstructor").With(Visibility.Public);
+            Console.WriteLine(myCnstr);
+            // Automatic
+            var myClass = Noast.Create<IClass>("Autogen");
+            var cstr = Noast.Create<IMethod>(".ctor").With(Visibility.Public);
+            myClass.Methods.Add(cstr);
+            Console.WriteLine(myClass);
+            // Compare
+            Assert.AreEqual(myCnstr.ToString(), myClass.ToString());
+        }
+
+        [Test]
         public void ShouldGenerateField()
         {
             var myField = Noast.Create<IField>("MyField").With(Visibility.Public);
@@ -125,13 +140,6 @@ namespace Noaster.Test
         {
             var myIndx = Noast.Create<IIndexer>("MyIndexer").With(Visibility.Public);
             Console.WriteLine(myIndx);
-        }
-
-        [Test]
-        public void ShouldGenerateConstructor()
-        {
-            var myCnstr = Noast.Create<IConstructor>("MyConstructor").With(Visibility.Public);
-            Console.WriteLine(myCnstr);
         }
 
         [Test]
