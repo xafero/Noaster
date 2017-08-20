@@ -129,6 +129,21 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateInitializer()
+        {
+            // Manual
+            var myCnstr = Noast.Create<IConstructor>("MyConstructor").With(Modifier.Static);
+            Console.WriteLine(myCnstr);
+            // Automatic
+            var myClass = Noast.Create<IClass>("Autogen");
+            var cstr = Noast.Create<IMethod>(".cctor");
+            myClass.Methods.Add(cstr);
+            Console.WriteLine(myClass);
+            // Compare
+            Assert.AreEqual(myCnstr.ToString(), myClass.ToString());
+        }
+
+        [Test]
         public void ShouldGenerateOperator()
         {
             // Manual

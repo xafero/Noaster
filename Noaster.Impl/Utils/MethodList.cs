@@ -76,6 +76,7 @@ namespace Noaster.Impl.Utils
             switch (kind)
             {
                 case Special.Ctor:
+                case Special.Cctor:
                     return AddOrUpdateConstructor(kind == Special.Ctor, item);
                 case Special.Op:
                     return AddOrUpdateOperator(name, item);
@@ -120,7 +121,7 @@ namespace Noaster.Impl.Utils
             if (evt == null)
                 holder.Events.Add(evt = new EventImpl(name));
             evt.Visibility = orig.Visibility;
-            evt.Type = orig.Parameters.First().Type;
+            evt.Type = orig.Parameters.FirstOrDefault()?.Type ?? typeof(object).FullName;
             return true;
         }
 
@@ -144,7 +145,8 @@ namespace Noaster.Impl.Utils
             var holder = _type as IHasConstructors;
             if (holder == null)
                 return false;
-            var cstr = holder.Constructors.FirstOrDefault();
+            var cstr = holder.Constructors.FirstOrDefault(c => 
+                isInstance ? !c.Modifier.HasFlag(Modifier.Static) : c.Modifier == Modifier.Static);
             if (cstr == null)
                 holder.Constructors.Add(cstr = new ConstructorImpl(null));
             cstr.Visibility = orig.Visibility;
@@ -153,6 +155,8 @@ namespace Noaster.Impl.Utils
                 var myParm = new ParameterImpl(parm.Name, parm.Type);
                 cstr.Parameters.Add(myParm);
             }
+            if (!isInstance)
+                cstr.Modifier = Modifier.Static;
             return true;
         }
 
@@ -181,6 +185,7 @@ namespace Noaster.Impl.Utils
             Add,
             Remove,
             Ctor,
+            Cctor,
             Op
         }
     }

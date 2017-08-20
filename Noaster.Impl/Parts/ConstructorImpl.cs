@@ -7,9 +7,11 @@ using Noaster.Impl.Utils;
 
 namespace Noaster.Impl.Parts
 {
-    public class ConstructorImpl : IConstructor, INamed, IHasSyntaxNodes
+    public class ConstructorImpl : IConstructor, INamed, IHasSyntaxNodes,
+        IModifiable
     {
         public Visibility Visibility { get; set; }
+        public Modifier Modifier { get; set; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
 
@@ -24,7 +26,9 @@ namespace Noaster.Impl.Parts
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var acc = Visibility.ToAccessibility();
-            yield return gen.ConstructorDeclaration(Name, gen.GetParamNodes(this), accessibility: acc);
+            var mod = Modifier.ToDeclare();
+            yield return gen.ConstructorDeclaration(Name, gen.GetParamNodes(this),
+                accessibility: acc, modifiers: mod);
         }
     }
 }
