@@ -179,7 +179,7 @@ namespace Noaster.Test
 
 
         [Test]
-        public void ShouldCreateClassByMethod()
+        public void ShouldGenerateComplexClass()
         {
             var nsp = Noast.Create<INamespace>("MyProject.Complex");
             var cla = Noast.Create<IClass>("Person", nsp).With(Visibility.Public);
@@ -196,6 +196,8 @@ namespace Noaster.Test
             cla.Methods.Add(meth);
             meth = Noast.Create<IMethod>("op_Inequality").With(Visibility.Public);
             meth.ReturnType = typeof(bool).FullName;
+            meth.AddParameter("first", "Person");
+            meth.AddParameter("second", "Person");
             cla.Methods.Add(meth);
             meth = Noast.Create<IMethod>("get_Item").With(Visibility.Public);
             meth.AddParameter("index", typeof(int).FullName);

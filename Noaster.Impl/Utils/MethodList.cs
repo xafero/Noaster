@@ -103,6 +103,11 @@ namespace Noaster.Impl.Utils
             if (!opr.Modifier.HasFlag(Modifier.Static))
                 opr.Modifier |= Modifier.Static;
             opr.ReturnType = orig.ReturnType;
+            foreach (var parm in orig.Parameters)
+            {
+                var myParm = new ParameterImpl(parm.Name, parm.Type);
+                opr.Parameters.Add(myParm);
+            }
             return true;
         }
 
@@ -143,6 +148,11 @@ namespace Noaster.Impl.Utils
             if (cstr == null)
                 holder.Constructors.Add(cstr = new ConstructorImpl(null));
             cstr.Visibility = orig.Visibility;
+            foreach (var parm in orig.Parameters)
+            {
+                var myParm = new ParameterImpl(parm.Name, parm.Type);
+                cstr.Parameters.Add(myParm);
+            }
             return true;
         }
 
