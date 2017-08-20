@@ -129,6 +129,21 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateOperator()
+        {
+            // Manual
+            var myOp = Noast.Create<IOperator>("UnaryPlus").With(Modifier.Static).With(Visibility.Public);
+            Console.WriteLine(myOp);
+            // Automatic
+            var myClass = Noast.Create<IClass>("Autogen");
+            var op = Noast.Create<IMethod>("op_UnaryPlus").With(Visibility.Public);
+            myClass.Methods.Add(op);
+            Console.WriteLine(myClass);
+            // Compare
+            Assert.AreEqual(myOp.ToString(), myClass.ToString());
+        }
+
+        [Test]
         public void ShouldGenerateField()
         {
             var myField = Noast.Create<IField>("MyField").With(Visibility.Public);
@@ -140,13 +155,6 @@ namespace Noaster.Test
         {
             var myIndx = Noast.Create<IIndexer>("MyIndexer").With(Visibility.Public);
             Console.WriteLine(myIndx);
-        }
-
-        [Test]
-        public void ShouldGenerateOperator()
-        {
-            var myOp = Noast.Create<IOperator>("UnaryPlus").With(Modifier.Static).With(Visibility.Public);
-            Console.WriteLine(myOp);
         }
 
         [Test]

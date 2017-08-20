@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
+using Microsoft.CodeAnalysis;
 using Noaster.Api;
 using Noaster.Impl.Parts;
 
@@ -75,6 +77,8 @@ namespace Noaster.Impl.Utils
             {
                 case Special.Ctor:
                     return AddOrUpdateConstructor(kind == Special.Ctor, item);
+                case Special.Op:
+                    return AddOrUpdateOperator(name, item);
                 case Special.Get:
                 case Special.Set:
                     return AddOrUpdateProperty(name, kind == Special.Get, item);
@@ -84,6 +88,21 @@ namespace Noaster.Impl.Utils
                 default:
                     return false;
             }
+        }
+
+        private bool AddOrUpdateOperator(string name, IMethod orig)
+        {
+            var holder = _type as IHasOperators;
+            if (holder == null)
+                return false;
+            var opr = holder.Operators.FirstOrDefault(o => o.Name == name);
+            if (opr == null)
+                holder.Operators.Add(opr = new OperatorImpl(name));
+            opr.Visibility = orig.Visibility;
+            opr.Modifier = orig.Modifier;
+            if (!opr.Modifier.HasFlag(Modifier.Static))
+                opr.Modifier |= Modifier.Static;
+            return true;
         }
 
         private bool AddOrUpdateEvent(string name, bool isAdd, IMethod orig)
@@ -128,7 +147,8 @@ namespace Noaster.Impl.Utils
             Set,
             Add,
             Remove,
-            Ctor
+            Ctor,
+            Op
         }
     }
 }
