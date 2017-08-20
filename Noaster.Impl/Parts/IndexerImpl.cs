@@ -11,7 +11,7 @@ namespace Noaster.Impl.Parts
     public class IndexerImpl : IIndexer, INamed, IHasSyntaxNodes
     {
         public Visibility Visibility { get; set; }
-        public string Type { get; }
+        public string Type { get; set; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
 

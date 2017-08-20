@@ -11,7 +11,7 @@ namespace Noaster.Impl.Parts
     public class PropertyImpl : IProperty, INamed, IHasSyntaxNodes
     {
         public Visibility Visibility { get; set; }
-        public string Type { get; }
+        public string Type { get; set; }
         public string Name { get; }
 
         public PropertyImpl(string name, string type = null)

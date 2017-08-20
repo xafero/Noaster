@@ -177,6 +177,33 @@ namespace Noaster.Test
             Console.WriteLine(aNsp);
         }
 
+
+        [Test]
+        public void ShouldCreateClassByMethod()
+        {
+            var nsp = Noast.Create<INamespace>("MyProject.Complex");
+            var cla = Noast.Create<IClass>("Person", nsp).With(Visibility.Public);
+            var field = Noast.Create<IField>("cellCount").With(Visibility.Private);
+            field.Type = typeof(ulong).FullName;
+            cla.Fields.Add(field);
+            var meth = Noast.Create<IMethod>("get_Id").With(Visibility.Internal);
+            meth.ReturnType = typeof(Guid).FullName;
+            cla.Methods.Add(meth);
+            meth = Noast.Create<IMethod>("add_IdChanged").With(Visibility.Protected);
+            meth.AddParameter("handler", typeof(EventHandler).FullName);
+            cla.Methods.Add(meth);
+            meth = Noast.Create<IMethod>(".ctor").With(Visibility.ProtectedInternal);
+            cla.Methods.Add(meth);
+            meth = Noast.Create<IMethod>("op_Inequality").With(Visibility.Public);
+            meth.ReturnType = typeof(bool).FullName;
+            cla.Methods.Add(meth);
+            meth = Noast.Create<IMethod>("get_Item").With(Visibility.Public);
+            meth.AddParameter("index", typeof(int).FullName);
+            meth.ReturnType = typeof(string).FullName;
+            cla.Methods.Add(meth);
+            Console.WriteLine(nsp);
+        }
+
         [Test]
         public void ShouldGenerateMetadata()
         {

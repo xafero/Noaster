@@ -5,6 +5,7 @@ using Noaster.Api;
 using Noaster.Impl.Api;
 using Noaster.Impl.Utils;
 using System;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Noaster.Impl.Parts
 {
@@ -14,11 +15,13 @@ namespace Noaster.Impl.Parts
         public Modifier Modifier { get; set; }
         public string Name { get; }
         public IList<IParameter> Parameters { get; }
+        public string ReturnType { get; set; }
 
-        public OperatorImpl(string name)
+        public OperatorImpl(string name, string type = null)
         {
             Name = name;
             Parameters = new List<IParameter>();
+            ReturnType = type ?? "void";
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -29,8 +32,9 @@ namespace Noaster.Impl.Parts
             Enum.TryParse(Name, true, out kind);
             var acc = Visibility.ToAccessibility();
             var mod = Modifier.ToDeclare();
+            var type = SyntaxFactory.ParseTypeName(ReturnType);
             yield return gen.OperatorDeclaration(kind, gen.GetParamNodes(this),
-                accessibility: acc, modifiers: mod);
+                accessibility: acc, modifiers: mod, returnType: type);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Noaster.Api
 {
-    public interface IProperty : INamed, IVisible
+    public interface IProperty : INamed, IVisible, ITyped
     {
     }
 }

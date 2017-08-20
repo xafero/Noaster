@@ -102,6 +102,7 @@ namespace Noaster.Impl.Utils
             opr.Modifier = orig.Modifier;
             if (!opr.Modifier.HasFlag(Modifier.Static))
                 opr.Modifier |= Modifier.Static;
+            opr.ReturnType = orig.ReturnType;
             return true;
         }
 
@@ -114,6 +115,7 @@ namespace Noaster.Impl.Utils
             if (evt == null)
                 holder.Events.Add(evt = new EventImpl(name));
             evt.Visibility = orig.Visibility;
+            evt.Type = orig.Parameters.First().Type;
             return true;
         }
 
@@ -122,10 +124,13 @@ namespace Noaster.Impl.Utils
             var holder = _type as IHasProperties;
             if (holder == null)
                 return false;
+            if (orig.Parameters.Count >= (isGet ? 1 : 2))
+                return AddOrUpdateIndexer(name, isGet, orig);
             var prop = holder.Properties.FirstOrDefault(p => p.Name == name);
             if (prop == null)
                 holder.Properties.Add(prop = new PropertyImpl(name));
             prop.Visibility = orig.Visibility;
+            prop.Type = isGet ? orig.ReturnType : orig.Parameters.First().Type;
             return true;
         }
 
@@ -138,6 +143,24 @@ namespace Noaster.Impl.Utils
             if (cstr == null)
                 holder.Constructors.Add(cstr = new ConstructorImpl(null));
             cstr.Visibility = orig.Visibility;
+            return true;
+        }
+
+        private bool AddOrUpdateIndexer(string name, bool isGet, IMethod orig)
+        {
+            var holder = _type as IHasIndexers;
+            if (holder == null)
+                return false;
+            var indx = holder.Indexers.FirstOrDefault();
+            if (indx == null)
+                holder.Indexers.Add(indx = new IndexerImpl(name));
+            indx.Visibility = orig.Visibility;
+            indx.Type = isGet ? orig.ReturnType : orig.Parameters.Last().Type;
+            foreach (var parm in orig.Parameters.Take(orig.Parameters.Count - (isGet ? 0 : 1)))
+            {
+                var myParm = new ParameterImpl(parm.Name, parm.Type);
+                indx.Parameters.Add(myParm);
+            }
             return true;
         }
 
