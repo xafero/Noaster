@@ -193,6 +193,8 @@ namespace Noaster.Test
             meth.AddParameter("handler", typeof(EventHandler).FullName);
             cla.Methods.Add(meth);
             meth = Noast.Create<IMethod>(".ctor").With(Visibility.ProtectedInternal);
+            meth.AddParameter("id", typeof(Guid).FullName);
+            meth.AddParameter("name", typeof(string).FullName);
             cla.Methods.Add(meth);
             meth = Noast.Create<IMethod>("op_Inequality").With(Visibility.Public);
             meth.ReturnType = typeof(bool).FullName;
