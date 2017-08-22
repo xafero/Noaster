@@ -136,7 +136,8 @@ namespace Noaster.Impl.Utils
             if (prop == null)
                 holder.Properties.Add(prop = new PropertyImpl(name));
             prop.Visibility = orig.Visibility;
-            prop.Type = isGet ? orig.ReturnType : orig.Parameters.First().Type;
+            prop.Type = isGet ? orig.ReturnType : orig.Parameters.FirstOrDefault()?.Type
+                ?? typeof(object).FullName;
             return true;
         }
 

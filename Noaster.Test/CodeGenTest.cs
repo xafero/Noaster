@@ -252,5 +252,22 @@ namespace Noaster.Test
             myInfo.TargetFramework = "4.5";
             Console.WriteLine(myInfo);
         }
+
+        [Test]
+        public void ShouldGenerateCustomProps()
+        {
+            var intf = Noast.Create<IInterface>("MyIntf");
+            intf.Methods.Add(Noast.Create<IMethod>("get_ReadOnly"));
+            intf.Methods.Add(Noast.Create<IMethod>("set_WriteOnly"));
+            intf.Methods.Add(Noast.Create<IMethod>("get_ReadWrite"));
+            intf.Methods.Add(Noast.Create<IMethod>("set_ReadWrite"));
+            intf.Methods.Add(Noast.Create<IMethod>("add_AutoEvent"));
+            intf.Methods.Add(Noast.Create<IMethod>("remove_AutoEvent").Accepts("string"));
+            intf.Methods.Add(Noast.Create<IMethod>("get_ReadOnly").Accepts("byte").Returns("string"));
+            intf.Methods.Add(Noast.Create<IMethod>("set_WriteOnly").Accepts("short", "string"));
+            intf.Methods.Add(Noast.Create<IMethod>("get_ReadWrite").Accepts("short").Returns("string"));
+            intf.Methods.Add(Noast.Create<IMethod>("set_ReadWrite").Accepts("short", "string"));
+            Console.WriteLine(intf);
+        }
     }
 }

@@ -57,8 +57,23 @@ namespace Noaster.Dist
 
         public static T ChildOf<T>(this T clazz, string type) where T : IClass
         {
-            clazz.BaseType = Noaster.Create<IBase>(type);
+            clazz.BaseType = Noast.Create<IBase>(type);
             return clazz;
+        }
+
+        public static T Returns<T>(this T holder, string name) where T : IHasReturnType
+        {
+            holder.ReturnType = name;
+            return holder;
+        }
+
+        public static T Accepts<T>(this T holder, params string[] names) where T : IHasParameters
+        {
+            holder.Parameters.Clear();
+            var i = 0;
+            foreach (var name in names)
+                holder.AddParameter("param" + (i++), name);
+            return holder;
         }
     }
 }
