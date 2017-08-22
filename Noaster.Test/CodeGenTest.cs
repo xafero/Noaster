@@ -168,7 +168,7 @@ namespace Noaster.Test
         [Test]
         public void ShouldGenerateIndexer()
         {
-            var myIndx = Noast.Create<IIndexer>("MyIndexer").With(Visibility.Public);
+            var myIndx = Noast.Create<IIndexer>("MyIndexer").Accepts("int").With(Visibility.Public);
             Console.WriteLine(myIndx);
         }
 
