@@ -8,11 +8,13 @@ using System.Collections.Generic;
 
 namespace Noaster.Impl.Parts
 {
-    public class PropertyImpl : IProperty, INamed, IHasSyntaxNodes
+    public class PropertyImpl : IProperty, INamed, IHasSyntaxNodes, IAutoProperty
     {
         public Visibility Visibility { get; set; }
         public string Type { get; set; }
         public string Name { get; }
+        public string Getter { get; set; }
+        public string Setter { get; set; }
 
         public PropertyImpl(string name, string type = null)
         {
@@ -27,14 +29,17 @@ namespace Noaster.Impl.Parts
             var type = SyntaxFactory.ParseTypeName(Type);
             var prop = SyntaxFactory.PropertyDeclaration(type, Name)
                 .WithModifiers(Visibility.ToKeyword().ToList());
-            prop = prop.AddAccessorListAccessors(
-                SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
-                .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)
-            ));
-            prop = prop.AddAccessorListAccessors(
-                SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
-                .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)
-            ));
+            var isAuto = Getter == null && Setter == null;
+            if (isAuto || Getter != null)
+                prop = prop.AddAccessorListAccessors(
+                    SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
+                        .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)
+                        ));
+            if (isAuto || Setter != null)
+                prop = prop.AddAccessorListAccessors(
+                    SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
+                        .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)
+                        ));
             yield return prop;
         }
     }

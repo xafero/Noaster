@@ -17,6 +17,7 @@ namespace Noaster.Impl.Types
         public IList<IMethod> Methods { get; }
         public IList<IProperty> Properties { get; }
         public IList<IEvent> Events { get; }
+        public IList<IIndexer> Indexers { get; }
 
         public InterfaceImpl(INamespace nsp, string name)
         {
@@ -27,6 +28,7 @@ namespace Noaster.Impl.Types
             Methods = new MethodList(this);
             Properties = new List<IProperty>();
             Events = new List<IEvent>();
+            Indexers = new List<IIndexer>();
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -34,7 +36,8 @@ namespace Noaster.Impl.Types
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
         {
             var itt = gen.GetIntfNodes(this);
-            var mmb = gen.GetMethNodes(this).Concat(gen.GetPropNodes(this)).Concat(gen.GetEvtNodes(this));
+            var mmb = gen.GetMethNodes(this).Concat(gen.GetPropNodes(this))
+                .Concat(gen.GetEvtNodes(this)).Concat(gen.GetIndxNodes(this));
             var acc = Visibility.ToAccessibility();
             yield return gen.InterfaceDeclaration(Name, interfaceTypes: itt, members: mmb, accessibility: acc);
         }

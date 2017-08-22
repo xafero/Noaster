@@ -136,8 +136,16 @@ namespace Noaster.Impl.Utils
             if (prop == null)
                 holder.Properties.Add(prop = new PropertyImpl(name));
             prop.Visibility = orig.Visibility;
-            prop.Type = isGet ? orig.ReturnType : orig.Parameters.FirstOrDefault()?.Type
-                ?? typeof(object).FullName;
+            if (isGet)
+            {
+                prop.Type = orig.ReturnType;
+                prop.Getter = "";
+            }
+            else
+            {
+                prop.Type = orig.Parameters.FirstOrDefault()?.Type ?? typeof(object).FullName;
+                prop.Setter = "";
+            }
             return true;
         }
 
@@ -146,7 +154,7 @@ namespace Noaster.Impl.Utils
             var holder = _type as IHasConstructors;
             if (holder == null)
                 return false;
-            var cstr = holder.Constructors.FirstOrDefault(c => 
+            var cstr = holder.Constructors.FirstOrDefault(c =>
                 isInstance ? !c.Modifier.HasFlag(Modifier.Static) : c.Modifier == Modifier.Static);
             if (cstr == null)
                 holder.Constructors.Add(cstr = new ConstructorImpl(null));
@@ -166,11 +174,21 @@ namespace Noaster.Impl.Utils
             var holder = _type as IHasIndexers;
             if (holder == null)
                 return false;
-            var indx = holder.Indexers.FirstOrDefault();
+            var indx = holder.Indexers.FirstOrDefault(p => p.Name == name);
             if (indx == null)
                 holder.Indexers.Add(indx = new IndexerImpl(name));
             indx.Visibility = orig.Visibility;
-            indx.Type = isGet ? orig.ReturnType : orig.Parameters.Last().Type;
+            if (isGet)
+            {
+                indx.Type = orig.ReturnType;
+                indx.Getter = "";
+            }
+            else
+            {
+                indx.Type = orig.Parameters.Last().Type;
+                indx.Setter = "";
+            }
+            indx.Parameters.Clear();
             foreach (var parm in orig.Parameters.Take(orig.Parameters.Count - (isGet ? 0 : 1)))
             {
                 var myParm = new ParameterImpl(parm.Name, parm.Type);

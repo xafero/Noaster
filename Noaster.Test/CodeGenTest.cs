@@ -257,16 +257,16 @@ namespace Noaster.Test
         public void ShouldGenerateCustomProps()
         {
             var intf = Noast.Create<IInterface>("MyIntf");
-            intf.Methods.Add(Noast.Create<IMethod>("get_ReadOnly"));
-            intf.Methods.Add(Noast.Create<IMethod>("set_WriteOnly"));
-            intf.Methods.Add(Noast.Create<IMethod>("get_ReadWrite"));
-            intf.Methods.Add(Noast.Create<IMethod>("set_ReadWrite"));
-            intf.Methods.Add(Noast.Create<IMethod>("add_AutoEvent"));
-            intf.Methods.Add(Noast.Create<IMethod>("remove_AutoEvent").Accepts("string"));
+            intf.Methods.Add(Noast.Create<IMethod>("get_ReadOnly").Returns("string"));
+            intf.Methods.Add(Noast.Create<IMethod>("set_WriteOnly").Accepts("char"));
+            intf.Methods.Add(Noast.Create<IMethod>("get_ReadWrite").Returns("Stream"));
+            intf.Methods.Add(Noast.Create<IMethod>("set_ReadWrite").Accepts("Stream"));
+            intf.Methods.Add(Noast.Create<IMethod>("add_AutoEvent").Accepts("EventHandler"));
+            intf.Methods.Add(Noast.Create<IMethod>("remove_AutoEvent").Accepts("EventHandler"));
             intf.Methods.Add(Noast.Create<IMethod>("get_ReadOnly").Accepts("byte").Returns("string"));
             intf.Methods.Add(Noast.Create<IMethod>("set_WriteOnly").Accepts("short", "string"));
-            intf.Methods.Add(Noast.Create<IMethod>("get_ReadWrite").Accepts("short").Returns("string"));
-            intf.Methods.Add(Noast.Create<IMethod>("set_ReadWrite").Accepts("short", "string"));
+            intf.Methods.Add(Noast.Create<IMethod>("get_ReadWrite").Accepts("int").Returns("string"));
+            intf.Methods.Add(Noast.Create<IMethod>("set_ReadWrite").Accepts("int", "string"));
             Console.WriteLine(intf);
         }
     }
