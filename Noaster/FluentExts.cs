@@ -1,4 +1,5 @@
-﻿using Noaster.Api;
+﻿using System.Linq;
+using Noaster.Api;
 using Noast = Noaster.Dist.Noaster;
 
 namespace Noaster.Dist
@@ -35,7 +36,7 @@ namespace Noaster.Dist
             parms.Parameters.Add(parm);
             return parm;
         }
-        
+
         public static IEnumVal AddValue(this IEnum enm, string name)
         {
             var enmVal = Noast.Create<IEnumVal>(name);
@@ -51,7 +52,7 @@ namespace Noaster.Dist
 
         public static T With<T>(this T modifiable, Modifier mod) where T : IModifiable
         {
-            modifiable.Modifier = mod;
+            modifiable.Modifier |= mod;
             return modifiable;
         }
 
@@ -72,7 +73,17 @@ namespace Noaster.Dist
             holder.Parameters.Clear();
             var i = 0;
             foreach (var name in names)
-                holder.AddParameter("param" + (i++), name);
+            {
+                var typeName = name;
+                var parmName = "param" + (i++);
+                if (name.Contains("@"))
+                {
+                    var parts = name.Split(new[] {'@'}, 2);
+                    parmName = parts.First().Trim();
+                    typeName = parts.Last().Trim();
+                }
+                holder.AddParameter(parmName, typeName);
+            }
             return holder;
         }
     }

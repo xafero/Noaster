@@ -9,6 +9,12 @@ namespace Noaster.Api
 
         Static = 1,
 
-        Abstract = 2
+        Abstract = 2,
+
+        Virtual = 4,
+
+        Override = 8,
+        
+        Sealed = 16
     }
 }

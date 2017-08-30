@@ -32,6 +32,41 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateAbstractClass()
+        {
+            var myClass = Noast.Create<IClass>("A").With(Visibility.Public).With(Modifier.Abstract);
+            var myMeth = Noast.Create<IMethod>("DoWork").Accepts("i @ int")
+                .With(Visibility.Public).With(Modifier.Abstract);
+            myClass.Methods.Add(myMeth);
+            Console.WriteLine(myClass);
+            myClass = Noast.Create<IClass>("D").With(Visibility.Public);
+            myMeth = Noast.Create<IMethod>("DoWork").Accepts("i @ int")
+                .With(Visibility.Public).With(Modifier.Virtual);
+            myClass.Methods.Add(myMeth);
+            Console.WriteLine(myClass);
+            myClass = Noast.Create<IClass>("E").With(Visibility.Public).With(Modifier.Abstract);
+            myClass.BaseType = Noast.Create<IBase>("D");
+            myMeth = Noast.Create<IMethod>("DoWork").Accepts("i @ int")
+                .With(Visibility.Public).With(Modifier.Abstract).With(Modifier.Override);
+            myClass.Methods.Add(myMeth);
+            Console.WriteLine(myClass);
+            myClass = Noast.Create<IClass>("F").With(Visibility.Public);
+            myClass.BaseType = Noast.Create<IBase>("E");
+            myMeth = Noast.Create<IMethod>("DoWork").Accepts("i @ int")
+                .With(Visibility.Public).With(Modifier.Override);
+            myClass.Methods.Add(myMeth);
+            Console.WriteLine(myClass);
+            myClass = Noast.Create<IClass>("D").With(Visibility.Public).With(Modifier.Sealed);
+            Console.WriteLine(myClass);
+            myClass = Noast.Create<IClass>("D").With(Visibility.Public);
+            myClass.BaseType = Noast.Create<IBase>("C");
+            myMeth = Noast.Create<IMethod>("DoWork")
+                .With(Visibility.Public).With(Modifier.Sealed).With(Modifier.Override);
+            myClass.Methods.Add(myMeth);
+            Console.WriteLine(myClass);
+        }
+
+        [Test]
         public void ShouldGenerateDelegate()
         {
             var myDlgt = Noast.Create<IDelegate>("MyDelegate").With(Visibility.Public);
@@ -191,7 +226,6 @@ namespace Noaster.Test
             var aDeleg = Noast.Create<IDelegate>("HelloDelegate", aNsp);
             Console.WriteLine(aNsp);
         }
-
 
         [Test]
         public void ShouldGenerateComplexClass()

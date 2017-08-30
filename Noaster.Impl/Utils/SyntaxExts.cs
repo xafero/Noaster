@@ -41,12 +41,13 @@ namespace Noaster.Impl.Utils
 
         public static DeclarationModifiers ToDeclare(this Modifier mod)
         {
-            switch (mod)
-            {
-                case Modifier.Static: return DeclarationModifiers.Static;
-                case Modifier.Abstract: return DeclarationModifiers.Abstract;
-            }
-            return DeclarationModifiers.None;
+            var decl = DeclarationModifiers.None;
+            if (mod.HasFlag(Modifier.Static)) decl = decl.WithIsStatic(true);
+            if (mod.HasFlag(Modifier.Abstract)) decl = decl.WithIsAbstract(true);
+            if (mod.HasFlag(Modifier.Virtual)) decl = decl.WithIsVirtual(true);
+            if (mod.HasFlag(Modifier.Override)) decl = decl.WithIsOverride(true);
+            if (mod.HasFlag(Modifier.Sealed)) decl = decl.WithIsSealed(true);
+            return decl;
         }
 
         public static Accessibility ToAccessibility(this Visibility vis)
