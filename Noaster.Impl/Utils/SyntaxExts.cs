@@ -47,6 +47,7 @@ namespace Noaster.Impl.Utils
             if (mod.HasFlag(Modifier.Virtual)) decl = decl.WithIsVirtual(true);
             if (mod.HasFlag(Modifier.Override)) decl = decl.WithIsOverride(true);
             if (mod.HasFlag(Modifier.Sealed)) decl = decl.WithIsSealed(true);
+            if (mod.HasFlag(Modifier.Partial)) decl = decl.WithPartial(true);
             return decl;
         }
 

@@ -15,6 +15,8 @@ namespace Noaster.Api
 
         Override = 8,
         
-        Sealed = 16
+        Sealed = 16,
+        
+        Partial = 32
     }
 }

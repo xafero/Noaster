@@ -32,6 +32,20 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGeneratePartialClass()
+        {
+            var myClass = Noast.Create<IClass>("MyPartClass").With(Visibility.Public)
+                .With(Modifier.Partial);
+            myClass.AddImplements(typeof(IDisposable).FullName);
+            Console.WriteLine(myClass);
+            myClass = Noast.Create<IClass>("MyPartClass").With(Visibility.Public)
+                .With(Modifier.Partial);
+            var myMeth = Noast.Create<IMethod>("Dispose").With(Visibility.Public);
+            myClass.Methods.Add(myMeth);
+            Console.WriteLine(myClass);
+        }
+
+        [Test]
         public void ShouldGenerateAbstractClass()
         {
             var myClass = Noast.Create<IClass>("A").With(Visibility.Public).With(Modifier.Abstract);
