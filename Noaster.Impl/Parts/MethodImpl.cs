@@ -13,7 +13,7 @@ namespace Noaster.Impl.Parts
     {
         public Visibility Visibility { get; set; }
         public Modifier Modifier { get; set; }
-        public string Name { get; }
+        public string Name { get; private set; }
         public IList<IParameter> Parameters { get; }
         public string ReturnType { get; set; }
         public string Body { get; set; }
@@ -27,6 +27,8 @@ namespace Noaster.Impl.Parts
             Attributes = new List<IAttribute>();
         }
 
+        public void Rename(string name) => Name = name;
+
         public override string ToString() => RoslynTool.ToString(this);
 
         public IEnumerable<SyntaxNode> GetNodes(SyntaxGenerator gen)
@@ -35,7 +37,7 @@ namespace Noaster.Impl.Parts
             var mod = Modifier.ToDeclare();
             var type = SyntaxFactory.ParseTypeName(ReturnType);
             var stats = SyntaxExts.GetNodesFromCode(Body);
-            var meth = (MethodDeclarationSyntax) gen.MethodDeclaration(Name, gen.GetParamNodes(this),
+            var meth = (MethodDeclarationSyntax)gen.MethodDeclaration(Name, gen.GetParamNodes(this),
                 accessibility: acc, modifiers: mod, returnType: type, statements: stats);
             yield return meth.WithAttributeLists(gen.GetAttrsNodes(this).ToList());
         }
