@@ -13,12 +13,17 @@ namespace Noaster.Impl.Parts
     {
         public ParamModifier Modifier { get; set; }
         public string Type { get; set; }
-        public string Name { get; }
+        public string Name { get; private set; }
 
         public ParameterImpl(string name, string type = null)
         {
             Name = name;
             Type = type ?? typeof(object).FullName;
+        }
+        
+        public void Rename(string name)
+        {
+            Name = name;
         }
 
         public override string ToString() => RoslynTool.ToString(this);
