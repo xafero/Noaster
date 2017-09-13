@@ -72,7 +72,10 @@ namespace Noaster.Impl.Utils
 
         private bool Understand(Special kind, IMethod item)
         {
-            var name = item.Name.Split(new[] {'_'}, 2).Last();
+            var parts = item.Name.Split(new[] { '_' }, 2);
+            var name = parts.Last();
+            if (parts.Length != 2 && kind != Special.Cctor && kind != Special.Ctor)
+                return false;
             switch (kind)
             {
                 case Special.Ctor:

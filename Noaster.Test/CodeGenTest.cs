@@ -163,6 +163,22 @@ namespace Noaster.Test
         }
 
         [Test]
+        public void ShouldGenerateNoEvent()
+        {
+            var myClass = Noast.Create<IInterface>("IImageList");
+            var adder = Noast.Create<IMethod>("Add").With(Visibility.Public);
+            adder.AddParameter("listener", typeof(IntPtr).FullName);
+            myClass.Methods.Add(adder);
+            var remover = Noast.Create<IMethod>("Remove").With(Visibility.Public);
+            remover.AddParameter("listener", typeof(int).FullName);
+            myClass.Methods.Add(remover);
+            Console.WriteLine(myClass);
+            // Check it
+            Assert.AreEqual(0, myClass.Events.Count);
+            Assert.AreEqual(2, myClass.Methods.Count);
+        }
+
+        [Test]
         public void ShouldGenerateConstructor()
         {
             // Manual
