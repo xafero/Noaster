@@ -21,6 +21,7 @@ namespace Noaster.Impl.Types
         public IList<IConstructor> Constructors { get; }
         public IList<IOperator> Operators { get; }
         public IList<IAttribute> Attributes { get; }
+        public IList<IEvent> Events { get; }
 
         public StructImpl(INamespace nsp, string name)
         {
@@ -34,6 +35,7 @@ namespace Noaster.Impl.Types
             Constructors = new List<IConstructor>();
             Operators = new List<IOperator>();
             Attributes = new List<IAttribute>();
+            Events = new List<IEvent>();
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -43,8 +45,8 @@ namespace Noaster.Impl.Types
             var itt = gen.GetIntfNodes(this);
             var mmb = gen.GetFldNodes(this).Concat(gen.GetMethNodes(this))
                          .Concat(gen.GetPropNodes(this)).Concat(gen.GetCstrNodes(this))
-                         .Concat(gen.GetOperNodes(this));
-            var stru = (StructDeclarationSyntax) gen.StructDeclaration(Name, interfaceTypes: itt,
+                         .Concat(gen.GetOperNodes(this)).Concat(gen.GetEvtNodes(this));
+            var stru = (StructDeclarationSyntax)gen.StructDeclaration(Name, interfaceTypes: itt,
                 members: mmb, accessibility: Visibility.ToAccessibility());
             yield return stru.WithAttributeLists(gen.GetAttrsNodes(this).ToList());
         }

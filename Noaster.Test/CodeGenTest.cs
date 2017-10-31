@@ -230,10 +230,21 @@ namespace Noaster.Test
             Console.WriteLine(myField);
         }
 
+        [Category("Indexer")]
         [Test]
         public void ShouldGenerateIndexer()
         {
             var myIndx = Noast.Create<IIndexer>("MyIndexer").Accepts("int").With(Visibility.Public);
+            Console.WriteLine(myIndx);
+        }
+
+        [Category("Indexer")]
+        [Test]
+        public void ShouldGenerateCustomIndexer()
+        {
+            var myIndx = Noast.Create<IIndexer>("MyIndexer").Accepts("int").With(Visibility.Public);
+            myIndx.Getter = "return null;";
+            myIndx.Setter = "return;";
             Console.WriteLine(myIndx);
         }
 

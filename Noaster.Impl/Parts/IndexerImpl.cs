@@ -25,6 +25,8 @@ namespace Noaster.Impl.Parts
             Name = name;
             Type = type ?? typeof(object).FullName;
             Parameters = new List<IParameter>();
+            var error = $"throw new {typeof(NotImplementedException).FullName}();";
+            Getter = Setter = error;
         }
 
         public override string ToString() => RoslynTool.ToString(this);
@@ -38,15 +40,23 @@ namespace Noaster.Impl.Parts
                 .AddParameterListParameters(parms.ToArray());
             var isAuto = Getter == null && Setter == null;
             if (isAuto || Getter != null)
-                indx = indx.AddAccessorListAccessors(
-                    SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
-                        .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)
-                        ));
+            {
+                var get = SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration);
+                if (isAuto || Getter == null)
+                    get = get.WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+                else
+                    get = get.WithBody(SyntaxExts.GetBlockFromCode(Getter));
+                indx = indx.AddAccessorListAccessors(get);
+            }
             if (isAuto || Setter != null)
-                indx = indx.AddAccessorListAccessors(
-                    SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
-                        .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)
-                        ));
+            {
+                var set = SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration);
+                if (isAuto || Setter == null)
+                    set = set.WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+                else
+                    set = set.WithBody(SyntaxExts.GetBlockFromCode(Setter));
+                indx = indx.AddAccessorListAccessors(set);
+            }
             yield return indx;
         }
     }
