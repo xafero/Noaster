@@ -2,7 +2,7 @@
 {
     public interface IStruct : IType, IHasFields, IHasMethods, IHasProperties,
         IHasConstructors, IHasOperators, IHasInterfaces, IVisible,
-        IHasAttributes, IHasEvents
+        IHasAttributes, IHasEvents, IHasIndexers
     {
     }
 }
